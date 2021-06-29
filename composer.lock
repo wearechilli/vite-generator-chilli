@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "138e3c93433ff60bd101cc7a8dac72ab",
+    "content-hash": "73c7699c9942c70377859c467069767d",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -3287,6 +3287,73 @@
                 "source": "https://github.com/paragonie/random_compat"
             },
             "time": "2020-10-15T08:29:30+00:00"
+        },
+        {
+            "name": "pennebaker/craft-architect",
+            "version": "2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Pennebaker/craft-architect.git",
+                "reference": "75acc09b7d870cb76b5af39a4837615e5d31145e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Pennebaker/craft-architect/zipball/75acc09b7d870cb76b5af39a4837615e5d31145e",
+                "reference": "75acc09b7d870cb76b5af39a4837615e5d31145e",
+                "shasum": ""
+            },
+            "require": {
+                "craftcms/cms": "^3.1",
+                "ext-json": "*",
+                "symfony/yaml": "^3.2|^4.0|^5.0"
+            },
+            "require-dev": {
+                "spicyweb/craft-neo": "^2.0",
+                "verbb/super-table": "^2.0"
+            },
+            "type": "craft-plugin",
+            "extra": {
+                "name": "Architect",
+                "handle": "architect",
+                "schemaVersion": "2.0.0",
+                "developer": "Pennebaker",
+                "hasCpSettings": false,
+                "hasCpSection": true,
+                "changelogUrl": "https://raw.githubusercontent.com/Pennebaker/craft-architect/master/CHANGELOG.md",
+                "components": {
+                    "architectService": "pennebaker\\architect\\services\\ArchitectService"
+                },
+                "class": "pennebaker\\architect\\Architect"
+            },
+            "autoload": {
+                "psr-4": {
+                    "pennebaker\\architect\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pennebaker",
+                    "homepage": "https://pennebaker.com"
+                }
+            ],
+            "description": "CraftCMS plugin to generate content models from JSON/YAML data.",
+            "keywords": [
+                "Architect",
+                "Craft",
+                "cms",
+                "craft-plugin",
+                "craftcms"
+            ],
+            "support": {
+                "docs": "https://github.com/Pennebaker/craft-architect/blob/master/README.md",
+                "issues": "https://github.com/Pennebaker/craft-architect/issues",
+                "source": "https://github.com/Pennebaker/craft-architect/tree/2.4.2"
+            },
+            "time": "2021-03-19T19:48:27+00:00"
         },
         {
             "name": "php-science/textrank",

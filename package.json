@@ -8,7 +8,6 @@
     "@vitejs/plugin-legacy": "^1.4.3",
     "autoprefixer": "^10.2.6",
     "eslint": "^7.29.0",
-    "husky": "^6.0.0",
     "postcss": "^8.3.5",
     "postcss-import": "^14.0.2",
     "postcss-nested": "^5.0.5",
@@ -20,7 +19,6 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "prepare": "husky install"
+    "build": "vite build"
   }
 }

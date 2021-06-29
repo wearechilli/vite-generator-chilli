@@ -2,7 +2,7 @@
 {% extends "_layout/site" %}
 
 {% block content %}
-<div class="w-screen h-screen flex items-center justify-center">
+<div class="w-screen min-h-screen flex items-center justify-center">
   <div class="text-center">
     <h1 class="font-display text-4xl mb-6">{{ entry.title }}</h1>
     <p class="font-sans">hello world!!!!</p>
@@ -10,6 +10,28 @@
 
     <div class="hello mt-4">
       <div class="world">This is nested css</div>
+    </div>
+
+    <div class="w-2/3 mx-auto">
+      {% for image in entry.images.all() %}
+      {# Create transforms #}
+      {% set imageSizes = [{ width: 600 }, { width: 800 }, { width: 1000 }, { width: 1200 }] %}
+      {% set transformedImages = craft.imager.transformImage(image, imageSizes) %}
+
+      {# If the server has support for WebP, create transforms #}
+      {% if craft.imager.serverSupportsWebp() %}
+          {% set transformedImagesWebp = craft.imager.transformImage(image, imageSizes, { format: 'webp' }) %}
+      {% endif %}
+
+      {# Output picture element with a separate source for clients that support WebP #}
+      <picture>
+        {% if craft.imager.serverSupportsWebp() %}
+            <source sizes="100vw" srcset="{{ craft.imager.srcset(transformedImagesWebp) }}" type="image/webp">
+        {% endif %}
+
+        <img src="{{ craft.imager.base64Pixel() }}" sizes="100vw" srcset="{{ craft.imager.srcset(transformedImages) }}">
+      </picture>
+      {% endfor %}
     </div>
   </div>
 </div>
