@@ -26,7 +26,6 @@ hooks:
         exit 0
     install_after: |
         composer install --no-dev --classmap-authoritative --prefer-dist --no-progress
-        npm i && npm run build
         exit 0
 
     # SHAREDSYMLINK: Create symlink to shared files and folders
