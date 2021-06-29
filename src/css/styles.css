@@ -7,7 +7,7 @@
 h1 {
   @apply text-yellow-600;
 
-  background: black;
+  background: green;
 }
 
 .hello {
