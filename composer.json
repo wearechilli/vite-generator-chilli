@@ -33,8 +33,10 @@
     ],
     "post-create-project-cmd": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php -r \"unlink('composer.json');\"",
+      "@php -r \"rename('composer.json.default', 'composer.json');\"",
       "@composer dump-autoload -o",
-      "nitro craft setup/index"
+      "@php craft setup/welcome"
     ]
   }
 }
