@@ -1,0 +1,16 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+
+{% block content %}
+<div class="w-screen h-screen flex items-center justify-center">
+  <div class="text-center">
+    <h1 class="font-display text-4xl mb-6">{{ entry.title }}</h1>
+    <p class="font-sans">hello world!!!!</p>
+    {{ svg('@viteroot/svg/chat.svg')|attr({ width: 24, height: 24, class: 'mx-auto mt-10' }) }}
+
+    <div class="hello mt-4">
+      <div class="world">This is nested css</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
