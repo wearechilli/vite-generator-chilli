@@ -1,0 +1,15 @@
+{
+  "src/js/app-legacy.js": {
+    "file": "assets/app-legacy.8355a9dd.js",
+    "src": "src/js/app-legacy.js",
+    "isEntry": true
+  },
+  "src/js/app.js": {
+    "file": "assets/app.3f7eee50.js",
+    "src": "src/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app.0cdd1376.css"
+    ]
+  }
+}

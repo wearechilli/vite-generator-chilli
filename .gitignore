@@ -119,7 +119,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist # Commented because we can't compile on Combell servers
 
 # Gatsby files
 .cache/
