@@ -1,0 +1,40 @@
+fieldLayouts:
+  06ef7bfa-8c95-43f5-b34e-76ef826bbf48:
+    tabs:
+      -
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\AssetTitleField
+            warning: null
+            width: 100
+        name: Content
+        sortOrder: 1
+handle: siteAssets
+hasUrls: true
+name: 'Site Beelden'
+settings:
+  path: '@webroot/uploads/site-assets'
+sortOrder: 1
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+type: craft\volumes\Local
+url: '@web/uploads/site-assets'

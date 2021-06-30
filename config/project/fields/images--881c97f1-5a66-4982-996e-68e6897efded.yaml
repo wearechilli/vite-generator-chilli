@@ -1,0 +1,33 @@
+contentColumnType: string
+fieldGroup: 8a739afe-c4ea-4101-a542-1cd1459d5775 # Common
+handle: images
+instructions: ''
+name: Afbeelding(en)
+searchable: false
+settings:
+  allowSelfRelations: false
+  allowUploads: false
+  allowedKinds:
+    - image
+  defaultUploadLocationSource: 'volume:edcf43a4-b752-41fb-a84c-709e38f101b6' # Site Beelden
+  defaultUploadLocationSubpath: ''
+  limit: ''
+  localizeRelations: false
+  previewMode: full
+  restrictFiles: '1'
+  selectionLabel: ''
+  showSiteMenu: false
+  showUnpermittedFiles: false
+  showUnpermittedVolumes: false
+  singleUploadLocationSource: 'volume:edcf43a4-b752-41fb-a84c-709e38f101b6' # Site Beelden
+  singleUploadLocationSubpath: ''
+  source: null
+  sources:
+    - 'volume:edcf43a4-b752-41fb-a84c-709e38f101b6' # Site Beelden
+  targetSiteId: null
+  useSingleFolder: false
+  validateRelatedElements: false
+  viewMode: large
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Assets
