@@ -26,6 +26,7 @@ hooks:
         exit 0
     install_after: |
         composer install --no-dev --classmap-authoritative --prefer-dist --no-progress
+        npm i && npm run build
         exit 0
 
     # SHAREDSYMLINK: Create symlink to shared files and folders
@@ -40,7 +41,7 @@ hooks:
         exit 0
     symlink_after: |
         ./craft migrate/all
-        ./craft project-config/sync
+        ./craft project-config/apply
         exit 0
 
     # CLEANUP: Cleanup old releases, two most recent releases remaining
