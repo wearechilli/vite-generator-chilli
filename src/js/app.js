@@ -1,4 +1,5 @@
 import '/src/css/styles.css';
+import 'vite/dynamic-import-polyfill'
 import PrivacyBanner from 'privacy-banner';
 import * as Ladda from 'ladda';
 
