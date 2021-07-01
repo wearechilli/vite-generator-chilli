@@ -1,17 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-
+/* Tailwind */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-h1 {
-  @apply text-yellow-600;
+/* Other libraries */
+@import "ladda/dist/ladda-themeless.min";
+@import "hamburgers/dist/hamburgers";
 
-  background: green;
-}
-
-.hello {
-  .world {
-    color: brown;
-  }
-}
+/* Custom */
+@import "./components/boilerplate";
+@import "./components/app";

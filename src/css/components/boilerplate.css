@@ -1,0 +1,190 @@
+/*
+ * A better container
+ */
+.container {
+  @apply mx-auto px-8 sm:px-12;
+  max-width: theme('screens.2xl');
+}
+
+/*
+ * Fade in elements
+ */
+.fade-in {
+  @apply opacity-0 translate-y-4 duration-300 ease-linear;
+}
+
+/*
+ * Cookie banner
+ */
+.cookie-banner {
+  left: auto !important;
+  right: 0 !important;
+  font-size: 12px;
+  a { text-decoration: underline; }
+
+  > div {
+    display: block !important;
+    > div { margin-right: 0 !important; }
+  }
+
+  p {
+    margin-bottom: 1em !important;
+  }
+
+  > div > div:last-child {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  button + br { display: none; }
+
+  button[data-accept] {
+    @apply ml-2;
+  }
+
+  button[data-decline] {
+    font-size: 12px !important;
+    text-decoration: underline !important;
+  }
+}
+
+/*
+ * A responsive table element in body classes
+ */
+.body table {
+  @apply inline-block align-top w-auto max-w-full mb-8 border-collapse overflow-x-auto whitespace-nowrap md:whitespace-normal md:table md:w-full md:shadow-none;
+  border-spacing: 0;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: inset -8px 0 5px -5px theme('colors.gray.300');
+
+  /* tr:not(:last-child) { @apply border-b border-gray-light; } */
+
+  th {
+    @apply font-bold;
+  }
+
+  td:not([class]), th:not([class]) { @apply px-3 py-1; }
+}
+
+/*
+ * Only show outlines when a user tabs, not when it focuses
+ */
+*:focus:not(:focus-visible) {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+/*
+ * Prevent words from breaking out their container
+ */
+.dont-break-out {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/*
+ * Some defaults for wysiwyg fields
+ */
+.body {
+  p:empty { @apply hidden; }
+
+  a:not(.button) {
+    @apply underline;
+    color: inherit;
+  }
+
+  p, h1, h2, h3, h4, h5, h6, ul, ol, dl, blockquote, img {
+    &:not(:first-child):not([class]) { @apply my-6; }
+    &:last-child:not([class]) { @apply mb-0; }
+  }
+
+  strong, b {
+    @apply font-bold;
+  }
+
+  li { @apply my-6; }
+
+  ul {
+    @apply pl-6;
+    list-style-type: disc;
+  }
+}
+
+/*
+ * A button element
+ */
+.button, .cookie-banner button[data-accept] {
+  /* $self: &; */
+  @apply relative inline-flex justify-center items-center cursor-pointer px-6;
+  transition: all 0.15s ease-in-out;
+  min-height: 44px;
+  min-width: 44px;
+
+  /* IE Bug -> https://github.com/philipwalton/flexbugs/issues/231#issuecomment-362790042 */
+  &::after {
+    content: '';
+    min-height: inherit;
+    font-size: 0;
+  }
+}
+
+/*
+ * Form defaults
+ */
+form .error {
+  @apply border-red-500 text-red-500;
+}
+
+input, textarea, select {
+  .error & {
+    @apply border-red-500 text-red-500 placeholder-red-500;
+  }
+}
+
+/*
+ * Custom radios and checkboxes
+ */
+input {
+  &[type="radio"] {
+    & + label::after {
+      content: '';
+      @apply w-[6px] h-[6px] absolute rounded-full;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+    &:checked + label { &::after { background: theme('colors.black'); } }
+  }
+
+  &[type="checkbox"] {
+    &:checked + label::after {
+      content: '';
+      @apply absolute;
+      top: 0;
+      left: 0;
+      width: 15px;
+      height: 15px;
+      background: url('../../www/svg/check.svg') no-repeat center center / 15px;
+    }
+  }
+
+  &[type="radio"], &[type="checkbox"] {
+    + label {
+      .error & {
+        @apply border-red-500 text-red-500;
+      }
+    }
+  }
+
+  &[type="number"].spinner {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}

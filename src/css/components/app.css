@@ -1,0 +1,19 @@
+.button, .cookie-banner button[data-accept] {
+  @apply bg-blue-500 hover:bg-blue-700 text-white;
+
+  /*
+  * Change the ladda spinner color on hover if necessary
+  */
+
+  /* &:hover {
+    .ladda-spinner div[role="progressbar"] > div > div {
+      background: theme('colors.white') !important;
+    }
+  } */
+}
+
+.nav-panel {
+  .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+    @apply !bg-white;
+  }
+}
