@@ -3,7 +3,7 @@ enabled: true
 handle: default
 hasUrls: true
 language: en
-name: 'Vite Demo'
+name: $SYSTEM_NAME
 primary: true
 siteGroup: d3a93d4a-e3e4-4c3b-8374-205d5d708a38 # Vite Demo
 sortOrder: 1

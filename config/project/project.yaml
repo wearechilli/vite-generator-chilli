@@ -1,8 +1,13 @@
-dateModified: 1625037226
+dateModified: 1625040531
 email:
-  fromEmail: sten@chilli.be
-  fromName: 'Vite Demo'
-  transportType: craft\mail\transportadapters\Sendmail
+  fromEmail: $SYSTEM_EMAIL
+  fromName: $SYSTEM_NAME
+  replyToEmail: null
+  template: null
+  transportSettings:
+    messageStream: ''
+    token: $POSTMARK_SERVER_TOKEN
+  transportType: craftcms\postmark\Adapter
 plugins:
   fathom-analytics:
     edition: standard
@@ -55,9 +60,10 @@ plugins:
 system:
   edition: solo
   live: true
-  name: 'Vite Demo'
+  name: $SYSTEM_NAME
+  retryDuration: null
   schemaVersion: 3.6.8
-  timeZone: America/Los_Angeles
+  timeZone: Europe/Brussels
 users:
   allowPublicRegistration: false
   defaultGroup: null

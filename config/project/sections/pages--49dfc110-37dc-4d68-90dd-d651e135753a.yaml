@@ -3,7 +3,7 @@ handle: pages
 name: 'Pagina''s'
 propagationMethod: all
 siteSettings:
-  c1cd6425-80af-4c42-b03f-8c0eaf604c28: # Vite Demo
+  c1cd6425-80af-4c42-b03f-8c0eaf604c28: # $SYSTEM_NAME
     enabledByDefault: true
     hasUrls: true
     template: _pages/entry
