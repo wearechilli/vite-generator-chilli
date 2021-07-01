@@ -1,7 +1,10 @@
 ### Various ###
 /www/uploads/*
 /www/imager/*
+/www/dist/*
 /config/license.key
+.env.db.staging
+.env.db.production
 
 # Created by https://www.toptal.com/developers/gitignore/api/osx,git,yarn,dotenv,composer,craftcms,phpstorm,visualstudiocode,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=osx,git,yarn,dotenv,composer,craftcms,phpstorm,visualstudiocode,node
@@ -124,7 +127,7 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-# dist # Commented because we can't compile on Combell servers
+dist
 
 # Gatsby files
 .cache/
