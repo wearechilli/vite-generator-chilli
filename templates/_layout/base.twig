@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ craft.app.language }}" class="subpixel-antialiased relative">
+<head>
+  <base href="{{ alias('@viteBaseUrl') }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  {{ craft.vite.script("/src/js/app.js", false) }}
+  {% include '_layout/partials/favicons' %}
+</head>
+<body>
+  {# Start our app #}
+  <div class="app min-h-screen flex flex-col">
+    {% block app %}{% endblock %}
+  </div>
+</body>
+</html>

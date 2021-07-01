@@ -1,0 +1,64 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+{% import '_macros/imager' as transform %}
+{% import '_macros/form' as form %}
+
+{% if not craft.app.config.general.devMode %}
+  {% exit 404 %}
+{% endif %}
+
+{% block content %}
+<div class="container">
+  <div class="w-2/3 mx-auto">
+    <h1 class="text-center text-4xl font-bold m-12">Example code</h1>
+
+    <h2 class="text-2xl font-bold my-10">Inline SVG's</h2>
+    {{ svg('@viteroot/svg/chat.svg')|attr({ width: 24, height: 24, class: 'text-blue-500' }) }}
+
+    <h2 class="text-2xl font-bold my-10">Modal windows</h2>
+    <button data-url="{{ url('ajax/modals/sample') }}" class="button js-modal">Open a modal</button>
+
+    <h2 class="text-2xl font-bold my-10">Menu Overlay</h2>
+    <button class="hamburger hamburger--slider js-hamburger" type="button">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+
+    <h2 class="text-2xl font-bold my-10">Form elements</h2>
+
+    <form method="post" action="" accept-charset="UTF-8" enctype="multipart/form-data" class="js-validate">
+      <div class="mb-6">
+        {{ form.input('Naam', { name: 'name', id: 'name' }) }}
+      </div>
+      <div class="mb-6">
+        {{ form.textarea('Bericht', { name: 'message', id: 'message' }) }}
+      </div>
+      <div class="mb-6">
+        <div class="mb-2">Ik ben</div>
+        <div class="mb-6">
+          {{ form.radio('Particulier', { name: 'type', id: 'type-person', value: 'person' }) }}
+        </div>
+        <div class="mb-6">
+          {{ form.radio('Zakelijk', { name: 'type', id: 'type-business', value: 'business' }) }}
+        </div>
+      </div>
+      <div class="mb-6">
+        {{ form.checkbox('Ik ga akkoord', { name: 'privacy', id: 'privacy', value: 1 }) }}
+      </div>
+      <div class="mb-6">
+        {{ form.select('Land', { name: 'country', id: 'country' }, [{ value: 'be', text: 'België' }, { value: 'nl', text: 'Nederland' }, { value: 'lu', text: 'Luxemburg' }]) }}
+      </div>
+
+      <button class="button">Verzenden</button>
+    </form>
+
+    <h2 class="text-2xl font-bold my-10">Image macro</h2>
+
+    <div>
+      {% for image in ['https://picsum.photos/id/1018/1000/680', 'https://picsum.photos/id/1003/1000/680', 'https://picsum.photos/id/1042/1000/680'] %}
+        {{ transform.image(image, { width: 1200 }, { loading: 'lazy', class: ['block', 'mb-4', 'rounded-xl','overflow-hidden', 'fade-in'] }) }}
+      {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="{{ craft.app.language }}" class="subpixel-antialiased relative">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  {{ craft.vite.script("/src/js/app.js", false) }}
-</head>
-<body>
-  <main>
+{% extends "_layout/base" %}
+
+{% block app %}
+  {% include '_layout/partials/header' %}
+  <main class="flex-grow">
     {% block content %}{% endblock %}
   </main>
-</body>
-</html>
+  {% include '_layout/partials/footer' %}
+{% endblock %}

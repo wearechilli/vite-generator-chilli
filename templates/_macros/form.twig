@@ -1,0 +1,103 @@
+{% macro input(label, attributes) %}
+{% set defaults = {
+  type: 'text',
+  required: true,
+  class: "block w-full bg-transparent border border-black text-black placeholder-opacity-50 text-base px-4 h-10 focus:outline-none"
+} %}
+{% set attributes = defaults|merge(attributes|merge({ class: "#{defaults.class} #{attributes.class|default}" })) %}
+
+<div>
+  {{- label is not empty ? tag('label', {
+    text: label,
+    for: attributes.id,
+    class: 'block',
+  }) -}}
+  {{- tag('input', attributes) -}}
+</div>
+{% endmacro %}
+
+{% macro textarea(label, attributes) %}
+{% set defaults = {
+  type: 'text',
+  required: true,
+  rows: 5,
+  class: 'block w-full bg-transparent border border-black text-base text-black placeholder-opacity-50 px-4 py-2 focus:outline-none'
+} %}
+{% set attributes = defaults|merge(attributes|merge({ class: "#{defaults.class} #{attributes.class|default}" })) %}
+
+<div>
+  {{- label is not empty ? tag('label', {
+    text: label,
+    for: attributes.id,
+    class: 'block',
+  }) -}}
+  {{- tag('textarea', attributes) -}}
+</div>
+{% endmacro %}
+
+{% macro checkbox(label, attributes) %}
+{% set defaults = {
+  type: 'checkbox',
+  required: true,
+  value: '1',
+  class: 'opacity-0'
+} %}
+{% set attributes = defaults|merge(attributes|merge({ class: "#{defaults.class} #{attributes.class|default}" })) %}
+
+<div class="js-input-wrapper">
+  <div class="relative max-w-full">
+    <div class="absolute pointer-events-none">
+      {{- tag('input', attributes) -}}
+      {{- tag('label', { for: attributes.id, class: 'absolute top-[3px] left-0 block border border-green-800 h-[16px] w-[16px]' }) -}}
+    </div>
+    {{- tag('label', { for: attributes.id, class: 'leading-6 align-top max-w-full cursor-pointer pl-6', html: label|raw }) -}}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro radio(label, attributes) %}
+{% set defaults = {
+  required: true,
+  type: 'radio',
+  class: 'opacity-0'
+} %}
+{% set attributes = defaults|merge(attributes|merge({ class: "#{defaults.class} #{attributes.class|default}" })) %}
+
+<div class="js-input-wrapper">
+  <div class="relative {{ item.disabled|default(false) ? 'opacity-25 cursor-default' }}">
+    <div class="absolute pointer-events-none">
+      {{- tag('input', attributes) -}}
+      {{- tag('label', { for: attributes.id, class: 'absolute top-[3px] left-0 block rounded-full border border-black h-[16px] w-[16px]' }) -}}
+    </div>
+    {{- tag('label', {
+      for: attributes.id,
+      class: 'block leading-6 align-top max-w-full cursor-pointer pl-6 ' ~ ((item.disabled|default(false)) ? 'cursor-default' : 'cursor-pointer'),
+      html: label|raw
+    }) -}}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro select(label, attributes, options) %}
+{% set defaults = {
+  required: true,
+  class: 'w-full min-w-20 bg-transparent text-black border border-black h-10 appearance-none px-4 cursor-pointer',
+  html: options|map((option) => tag('option', { value: option.value, text: option.text|lower, selected: (option.value == attributes.value|default('')) ? true : false, disabled: option.disabled|default(false) }))|join|raw
+} %}
+{% set attributes = defaults|merge(attributes|merge({ class: "#{defaults.class} #{attributes.class|default}" })) %}
+
+<div>
+  {{- label is not empty ? tag('label', {
+    text: label,
+    for: attributes.id,
+    class: 'block',
+  }) -}}
+  <div class="relative w-full">
+    {{- tag('select', attributes) -}}
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex flex-col justify-center pr-3">
+      {{ svg('@viteroot/svg/selector.svg')|attr({ width: 24, height: 24, class: '' }) }}
+    </div>
+  </div>
+</div>
+{% endmacro %}
+

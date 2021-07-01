@@ -1,0 +1,13 @@
+{# Layouts and macros #}
+{% extends "ajax/modals/_layout" %}
+
+{% if not craft.app.request.isAjax %}
+  {% redirect '/' %}
+{% endif %}
+
+{% block modal %}
+<h2 class="text-2xl font-bold mb-10">This is a modal</h2>
+<div class="body">
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Hoc ille tuus non vult omnibusque ex rebus voluptatem quasi mercedem exigit. Itaque rursus eadem ratione, qua sum paulo ante usus, haerebitis. Quam ob rem tandem, inquit, non satisfacit? Deinde prima illa, quae in congressu solemus: Quid tu, inquit, huc? </p>
+</div>
+{% endblock %}

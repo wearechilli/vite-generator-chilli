@@ -1,0 +1,9 @@
+<div class="absolute inset-0 w-full h-full z-40 sm:p-4">
+  <div class="absolute inset-0 w-full h-full js-backdrop cursor-pointer bg-black bg-opacity-40 backdrop-filter backdrop-blur opacity-0 transition-opacity duration-300 ease-out"></div>
+  <div class="relative sm:my-24 p-8 sm:p-12 min-h-screen sm:min-h-0 mx-auto bg-white max-w-screen-sm z-10 opacity-0 transition-opacity duration-300 ease-out js-modal">
+    <button class="absolute top-0 right-0 p-3 m-2 js-close">
+      {{ svg('@viteroot/svg/x.svg')|attr({ width: 24, height: 24, class: 'text-black' }) }}
+    </button>
+    {% block modal %}{% endblock %}
+  </div>
+</div>

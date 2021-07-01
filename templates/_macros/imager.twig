@@ -1,0 +1,25 @@
+{% macro image(image, sizes, attributes = {}) %}
+{# Convert to array if object is passed #}
+{% if sizes|first is not iterable %}
+  {% set sizes = [sizes] %}
+{% endif %}
+
+{# Create transforms #}
+{% set transformedImages = craft.imager.transformImage(image, sizes) %}
+
+{# If the server has support for WebP, create transforms #}
+{% if craft.imager.serverSupportsWebp() %}
+    {% set transformedImagesWebp = craft.imager.transformImage(image, sizes, { format: 'webp' }) %}
+{% endif %}
+
+<picture {{ attr(attributes) }}>
+  {% if craft.imager.serverSupportsWebp() %}
+    <source sizes="100vw" srcset="{{ craft.imager.srcset(transformedImagesWebp) }}" type="image/webp">
+  {% endif %}
+  <img src="{{ craft.imager.placeholder() }}" sizes="100vw" srcset="{{ craft.imager.srcset(transformedImages) }}" {{ attributes.loading is defined ? "loading=#{attributes.loading}" }}>
+</picture>
+{% endmacro %}
+
+{% macro url(image, size) %}
+  {{ attribute(craft.imager.transformImage(image, size), 'url') }}
+{% endmacro %}
