@@ -5,7 +5,7 @@
     "craftcms/postmark": "^2.1",
     "craftcms/redactor": "^2.8",
     "nystudio107/craft-seomatic": "^3.3",
-    "nystudio107/craft-vite": "^1.0",
+    "nystudio107/craft-vite": "1.0.11",
     "putyourlightson/craft-snaptcha": "^3.0",
     "spacecatninja/imager-x": "^3.4",
     "stenvdb/craft-fathom-analytics": "^1.1",
