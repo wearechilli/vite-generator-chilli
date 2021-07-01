@@ -1,4 +1,4 @@
-dateModified: 1625040531
+dateModified: 1625153374
 email:
   fromEmail: $SYSTEM_EMAIL
   fromName: $SYSTEM_NAME
@@ -35,24 +35,6 @@ plugins:
     enabled: true
     licenseKey: $PLUGIN_SEOMATIC_LICENSE
     schemaVersion: 3.0.10
-  snaptcha:
-    enabled: true
-    licenseKey: $PLUGIN_SNAPTCHA_LICENSE
-    schemaVersion: 3.0.6
-    settings:
-      errorButtonText: Resubmit
-      errorJavascriptDisabled: 'JavaScript must be enabled for your submission to be verified. Please enable it and refresh the page.'
-      errorMessage: 'For some reason your submission was flagged as spam. Please click the button below to resubmit your data.'
-      errorTemplate: ''
-      errorTitle: Error
-      expirationTime: 60
-      fieldName: snaptcha
-      logRejected: true
-      minimumSubmitTime: 1
-      oneTimeKey: true
-      salt: piqaxfpjzfcpqiuy
-      validateUsers: true
-      validationEnabled: false
   vite:
     edition: standard
     enabled: true

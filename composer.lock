@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c39e811b31c0c218f79a5c20ac34528",
+    "content-hash": "2f833b907908adc69ff1a4dd4ddfec88",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -3139,121 +3139,6 @@
                 "psr-3"
             ],
             "time": "2021-05-03T11:20:27+00:00"
-        },
-        {
-            "name": "putyourlightson/craft-log-to-file",
-            "version": "1.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/putyourlightson/craft-log-to-file.git",
-                "reference": "c03aec429710e9b3d54392cd75881090ae1c6457"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/putyourlightson/craft-log-to-file/zipball/c03aec429710e9b3d54392cd75881090ae1c6457",
-                "reference": "c03aec429710e9b3d54392cd75881090ae1c6457",
-                "shasum": ""
-            },
-            "require": {
-                "craftcms/cms": "^3.0.0",
-                "yiisoft/yii2": "^2.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "name": "Log To File",
-                "developer": "PutYourLightsOn",
-                "developerUrl": "https://putyourlightson.com/",
-                "documentationUrl": "https://github.com/putyourlightson/craft-log-to-file",
-                "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-log-to-file/v1/CHANGELOG.md"
-            },
-            "autoload": {
-                "psr-4": {
-                    "putyourlightson\\logtofile\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Logs messages to a specific log file for Craft CMS.",
-            "homepage": "https://github.com/putyourlightson/craft-log-to-file",
-            "keywords": [
-                "Craft",
-                "cms",
-                "craftcms",
-                "file",
-                "log",
-                "plugin"
-            ],
-            "support": {
-                "docs": "https://github.com/putyourlightson/craft-log-to-file",
-                "issues": "https://github.com/putyourlightson/craft-log-to-file/issues",
-                "source": "https://github.com/putyourlightson/craft-log-to-file"
-            },
-            "time": "2020-08-24T09:13:24+00:00"
-        },
-        {
-            "name": "putyourlightson/craft-snaptcha",
-            "version": "3.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/putyourlightson/craft-snaptcha.git",
-                "reference": "058c5b019eb1961ab2830c7dfec29355bca28181"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/putyourlightson/craft-snaptcha/zipball/058c5b019eb1961ab2830c7dfec29355bca28181",
-                "reference": "058c5b019eb1961ab2830c7dfec29355bca28181",
-                "shasum": ""
-            },
-            "require": {
-                "craftcms/cms": "^3.2.1",
-                "putyourlightson/craft-log-to-file": "^1.2.3"
-            },
-            "require-dev": {
-                "codeception/codeception": "^4.0.0",
-                "codeception/module-asserts": "^1.0.0",
-                "codeception/module-yii2": "^1.0.0",
-                "vlucas/phpdotenv": "^3.0"
-            },
-            "type": "craft-plugin",
-            "extra": {
-                "name": "Snaptcha",
-                "handle": "snaptcha",
-                "developer": "PutYourLightsOn",
-                "developerUrl": "https://putyourlightson.com/",
-                "documentationUrl": "https://putyourlightson.com/plugins/snaptcha",
-                "schemaVersion": "3.0.6",
-                "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-snaptcha/v3/CHANGELOG.md",
-                "class": "putyourlightson\\snaptcha\\Snaptcha"
-            },
-            "autoload": {
-                "psr-4": {
-                    "putyourlightson\\snaptcha\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "proprietary"
-            ],
-            "description": "Automatically validates forms and prevents spam bots from submitting to your site.",
-            "homepage": "https://putyourlightson.com/plugins/snaptcha",
-            "keywords": [
-                "Craft",
-                "blocker",
-                "cms",
-                "craftcms",
-                "form",
-                "protection",
-                "security",
-                "spam"
-            ],
-            "support": {
-                "docs": "https://putyourlightson.com/plugins/snaptcha",
-                "issues": "https://github.com/putyourlightson/craft-snaptcha/issues",
-                "source": "https://github.com/putyourlightson/craft-snaptcha"
-            },
-            "time": "2021-06-28T11:46:06+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

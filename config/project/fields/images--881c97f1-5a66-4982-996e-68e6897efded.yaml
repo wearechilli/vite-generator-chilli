@@ -1,5 +1,5 @@
 contentColumnType: string
-fieldGroup: 8a739afe-c4ea-4101-a542-1cd1459d5775 # Common
+fieldGroup: 6dc4edf0-e40f-4e8c-ab5c-3b4328e4566a # Elements (entries, categories, products, ...)
 handle: images
 instructions: ''
 name: Afbeelding(en)
@@ -16,7 +16,7 @@ settings:
   previewMode: full
   restrictFiles: '1'
   selectionLabel: ''
-  showSiteMenu: false
+  showSiteMenu: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   singleUploadLocationSource: 'volume:edcf43a4-b752-41fb-a84c-709e38f101b6' # Site Beelden
