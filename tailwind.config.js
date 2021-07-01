@@ -6,16 +6,13 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      fontFamily: {
-        display: [
-          'Lobster',
-          'cursive'
-        ]
-      }
     },
   },
   variants: {
     extend: {},
   },
   plugins: [],
+  corePlugins: {
+    container: false,
+  }
 }
