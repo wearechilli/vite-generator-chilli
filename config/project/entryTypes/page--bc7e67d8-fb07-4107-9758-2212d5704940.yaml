@@ -1,5 +1,5 @@
 fieldLayouts:
-  62c516c4-efd8-40dc-b501-25a9bb97e61b:
+  e7ad0459-5c22-414e-a20e-5f389dacf0ef:
     tabs:
       -
         elements:
@@ -41,11 +41,11 @@ fieldLayouts:
             width: 100
         name: SEO
         sortOrder: 2
-handle: home
+handle: page
 hasTitleField: true
-name: Home
+name: Pagina
 section: 49dfc110-37dc-4d68-90dd-d651e135753a # Pagina's
-sortOrder: 1
+sortOrder: 2
 titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site
