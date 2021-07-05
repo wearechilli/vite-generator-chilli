@@ -6,6 +6,7 @@
     "craftcms/redactor": "^2.8",
     "nystudio107/craft-seomatic": "^3.3",
     "nystudio107/craft-vite": "1.0.11",
+    "pennebaker/craft-architect": "^2.4",
     "spacecatninja/imager-x": "^3.4",
     "stenvdb/craft-fathom-analytics": "^1.1",
     "vlucas/phpdotenv": "^3.4.0"

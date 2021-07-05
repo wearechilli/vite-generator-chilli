@@ -1,0 +1,38 @@
+fieldLayouts:
+  002c75b6-6c64-49f1-a52f-31f285b8f247:
+    tabs:
+      -
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\EntryTitleField
+            warning: null
+            width: 100
+        name: Content
+        sortOrder: 1
+handle: pickupRules
+hasTitleField: true
+name: 'Ophaal Validatie Regels'
+section: b82b7fd6-58ea-420e-b7c8-d28578619de3 # Ophaal Validatie Regels
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

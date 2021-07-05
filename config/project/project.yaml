@@ -1,4 +1,4 @@
-dateModified: 1625153770
+dateModified: 1625478640
 email:
   fromEmail: $SYSTEM_EMAIL
   fromName: $SYSTEM_NAME
@@ -9,6 +9,10 @@ email:
     token: $POSTMARK_SERVER_TOKEN
   transportType: craftcms\postmark\Adapter
 plugins:
+  architect:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.0.0
   fathom-analytics:
     edition: standard
     enabled: true
