@@ -1,0 +1,561 @@
+{
+  "fieldGroups": [
+      "Text",
+      "Tables",
+      "Form elements (checkboxes, dropdowns, ...)",
+      "Elements (entries, categories, products, ...)"
+  ],
+  "categoryGroups": [
+      {
+          "name": "Shop",
+          "handle": "shop",
+          "maxLevels": null,
+          "siteSettings": [
+              {
+                  "uriFormat": "shop\/{slug}",
+                  "template": "_shop\/category"
+              }
+          ],
+          "fieldLayout": {
+              "Content": [
+                  "__ui_1"
+              ]
+          },
+          "fieldConfigs": {
+              "Content": {
+                  "__ui_1": {
+                      "type": "craft\\fieldlayoutelements\\TitleField",
+                      "width": 100
+                  }
+              }
+          }
+      }
+  ],
+  "sections": [
+      {
+          "name": "Ophaal Validatie Regels",
+          "handle": "pickupRules",
+          "type": "channel",
+          "enableVersioning": true,
+          "propagateEntries": true,
+          "siteSettings": [
+              {
+                  "hasUrls": false,
+                  "enabledByDefault": true
+              }
+          ]
+      },
+      {
+          "name": "Variant Attribute Option Labels",
+          "handle": "variantAttributeOptionLabels",
+          "type": "channel",
+          "enableVersioning": true,
+          "propagateEntries": true,
+          "siteSettings": [
+              {
+                  "hasUrls": false,
+                  "enabledByDefault": true
+              }
+          ]
+      },
+      {
+          "name": "Variant Attribute Option Values",
+          "handle": "variantAttributeOptionValues",
+          "type": "structure",
+          "enableVersioning": true,
+          "maxLevels": null,
+          "siteSettings": [
+              {
+                  "hasUrls": false,
+                  "enabledByDefault": true
+              }
+          ]
+      },
+      {
+          "name": "Winkel(s) Openingsuren",
+          "handle": "locations",
+          "type": "structure",
+          "enableVersioning": true,
+          "maxLevels": null,
+          "siteSettings": [
+              {
+                  "hasUrls": false,
+                  "enabledByDefault": true
+              }
+          ]
+      }
+  ],
+  "fields": [
+      {
+          "group": "Text",
+          "name": "Adres",
+          "handle": "address1",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "",
+          "initialRows": "4"
+      },
+      {
+          "group": "Tables",
+          "name": "Afhaalmomenten",
+          "handle": "pickupTimes",
+          "instructions": "",
+          "type": "craft\\fields\\Table",
+          "addRowLabel": "Add a row",
+          "maxRows": "7",
+          "minRows": "7",
+          "columns": {
+              "col1": {
+                  "heading": "Dag",
+                  "handle": "day",
+                  "width": "",
+                  "type": "singleline"
+              },
+              "col2": {
+                  "heading": "Start Uur",
+                  "handle": "open",
+                  "width": "",
+                  "type": "time"
+              },
+              "col3": {
+                  "heading": "Eind Uur",
+                  "handle": "close",
+                  "width": "",
+                  "type": "time"
+              },
+              "col4": {
+                  "heading": "1ste v\/d maand",
+                  "handle": "day1",
+                  "width": "",
+                  "type": "checkbox"
+              },
+              "col5": {
+                  "heading": "2e v\/d maand",
+                  "handle": "day2",
+                  "width": "",
+                  "type": "checkbox"
+              },
+              "col6": {
+                  "heading": "3e v\/d maand",
+                  "handle": "day3",
+                  "width": "",
+                  "type": "checkbox"
+              },
+              "col7": {
+                  "heading": "Voorlaatste",
+                  "handle": "daySecondLast",
+                  "width": "",
+                  "type": "checkbox"
+              },
+              "col8": {
+                  "heading": "Laatste",
+                  "handle": "dayLast",
+                  "width": "",
+                  "type": "checkbox"
+              }
+          },
+          "defaults": [
+              {
+                  "col1": "Maandag",
+                  "col4": "",
+                  "col5": "",
+                  "col6": "",
+                  "col7": "",
+                  "col8": ""
+              },
+              {
+                  "col1": "Dinsdag",
+                  "col4": "",
+                  "col5": "",
+                  "col6": "",
+                  "col7": "",
+                  "col8": ""
+              },
+              {
+                  "col1": "Woensdag",
+                  "col4": "",
+                  "col5": "",
+                  "col6": "",
+                  "col7": "",
+                  "col8": ""
+              },
+              {
+                  "col1": "Donderdag",
+                  "col4": "",
+                  "col5": "",
+                  "col6": "",
+                  "col7": "",
+                  "col8": ""
+              },
+              {
+                  "col1": "Vrijdag",
+                  "col4": "",
+                  "col5": "",
+                  "col6": "",
+                  "col7": "",
+                  "col8": ""
+              },
+              {
+                  "col1": "Zaterdag",
+                  "col4": "",
+                  "col5": "",
+                  "col6": "",
+                  "col7": "",
+                  "col8": ""
+              },
+              {
+                  "col1": "Zondag",
+                  "col4": "",
+                  "col5": "",
+                  "col6": "",
+                  "col7": "",
+                  "col8": ""
+              }
+          ],
+          "columnType": "text"
+      },
+      {
+          "group": "Form elements (checkboxes, dropdowns, ...)",
+          "name": "Display Type",
+          "handle": "displayType",
+          "instructions": "",
+          "type": "craft\\fields\\RadioButtons",
+          "options": [
+              {
+                  "label": "Dropdown",
+                  "value": "dropdown",
+                  "default": ""
+              },
+              {
+                  "label": "Radio Buttons",
+                  "value": "radioButtons",
+                  "default": ""
+              }
+          ]
+      },
+      {
+          "group": "Text",
+          "name": "E-mailadres",
+          "handle": "email",
+          "instructions": "",
+          "type": "craft\\fields\\Email",
+          "placeholder": ""
+      },
+      {
+          "group": "Tables",
+          "name": "Enkel Ophalen Op",
+          "handle": "pickupAllowed",
+          "instructions": "Opgelet: dit veld kan altijd conflicteren met andere producten in het winkelmandje",
+          "type": "craft\\fields\\Table",
+          "addRowLabel": "Add a row",
+          "maxRows": "",
+          "minRows": "",
+          "columns": {
+              "col1": {
+                  "heading": "Datum",
+                  "handle": "date",
+                  "width": "",
+                  "type": "date"
+              }
+          },
+          "defaults": [],
+          "columnType": "text"
+      },
+      {
+          "group": "Text",
+          "name": "Label",
+          "handle": "label",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "",
+          "initialRows": "4"
+      },
+      {
+          "group": "Text",
+          "name": "Locatie",
+          "handle": "location",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "",
+          "initialRows": "4"
+      },
+      {
+          "group": "Tables",
+          "name": "Nooit ophalen op",
+          "handle": "pickupDisallowed",
+          "instructions": "",
+          "type": "craft\\fields\\Table",
+          "addRowLabel": "Add a row",
+          "maxRows": "",
+          "minRows": "",
+          "columns": {
+              "col1": {
+                  "heading": "Datum",
+                  "handle": "date",
+                  "width": "",
+                  "type": "date"
+              }
+          },
+          "defaults": [],
+          "columnType": "text"
+      },
+      {
+          "group": "Text",
+          "name": "Openingsuren",
+          "handle": "pickupTimesText",
+          "instructions": "Leg de openingsuren uit in een gebruiksvriendelijk stukje tekst",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "1",
+          "initialRows": "2"
+      },
+      {
+          "group": "Text",
+          "name": "Ophaal Validatie Boodschap",
+          "handle": "pickupRuleMessage",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "1",
+          "initialRows": "2"
+      },
+      {
+          "group": "Text",
+          "name": "Postcode",
+          "handle": "zipCode",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "",
+          "initialRows": "4"
+      },
+      {
+          "group": "Elements (entries, categories, products, ...)",
+          "name": "Product(en)",
+          "handle": "products",
+          "instructions": "",
+          "type": "craft\\commerce\\fields\\Products",
+          "sources": "*",
+          "limit": "",
+          "selectionLabel": "",
+          "showSiteMenu": false,
+          "localizeRelations": false,
+          "validateRelatedElements": false,
+          "allowSelfRelations": false
+      },
+      {
+          "group": "Elements (entries, categories, products, ...)",
+          "name": "Shop Categorie",
+          "handle": "shopCategory",
+          "instructions": "",
+          "type": "craft\\fields\\Categories",
+          "allowLimit": false,
+          "allowMultipleSources": false,
+          "branchLimit": "1",
+          "sources": "*",
+          "source": "group:shop",
+          "selectionLabel": "",
+          "showSiteMenu": false,
+          "localizeRelations": false,
+          "validateRelatedElements": false,
+          "allowSelfRelations": false
+      },
+      {
+          "group": "Tables",
+          "name": "Speciale Openingsdagen",
+          "handle": "openingDays",
+          "instructions": "",
+          "type": "craft\\fields\\Table",
+          "addRowLabel": "Add a row",
+          "maxRows": "",
+          "minRows": "",
+          "columns": {
+              "col1": {
+                  "heading": "Datum",
+                  "handle": "date",
+                  "width": "",
+                  "type": "date"
+              },
+              "col2": {
+                  "heading": "Start Uur",
+                  "handle": "open",
+                  "width": "",
+                  "type": "time"
+              },
+              "col3": {
+                  "heading": "Eind Uur",
+                  "handle": "close",
+                  "width": "",
+                  "type": "time"
+              }
+          },
+          "defaults": [],
+          "columnType": "text"
+      },
+      {
+          "group": "Tables",
+          "name": "Speciale Sluitingsdagen",
+          "handle": "closingDays",
+          "instructions": "",
+          "type": "craft\\fields\\Table",
+          "addRowLabel": "Add a row",
+          "maxRows": "",
+          "minRows": "",
+          "columns": {
+              "col1": {
+                  "heading": "Datum",
+                  "handle": "date",
+                  "width": "",
+                  "type": "singleline"
+              }
+          },
+          "defaults": [],
+          "columnType": "text"
+      },
+      {
+          "group": "Text",
+          "name": "Stad",
+          "handle": "city",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "",
+          "initialRows": "4"
+      },
+      {
+          "group": "Text",
+          "name": "Telefoon",
+          "handle": "phone",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "",
+          "initialRows": "4"
+      },
+      {
+          "group": "Elements (entries, categories, products, ...)",
+          "name": "Unique Combination of Variant Attributes",
+          "handle": "uniqueCombinationOfVariantAttributes",
+          "instructions": "",
+          "type": "craft\\fields\\Entries",
+          "sources": [
+              "section:variantAttributeOptionValues"
+          ],
+          "limit": "1",
+          "selectionLabel": "",
+          "showSiteMenu": false,
+          "localizeRelations": false,
+          "validateRelatedElements": false,
+          "allowSelfRelations": false
+      },
+      {
+          "group": "Elements (entries, categories, products, ...)",
+          "name": "Variant Attribute Label",
+          "handle": "variantAttributeLabel",
+          "instructions": "",
+          "type": "craft\\fields\\Entries",
+          "sources": [
+              "section:variantAttributeOptionLabels"
+          ],
+          "limit": "1",
+          "selectionLabel": "",
+          "showSiteMenu": false,
+          "localizeRelations": false,
+          "validateRelatedElements": false,
+          "allowSelfRelations": false
+      }
+  ],
+  "entryTypes": [
+      {
+          "sectionHandle": "pickupRules",
+          "name": "Ophaal Validatie Regels",
+          "handle": "pickupRules",
+          "hasTitleField": true,
+          "titleFormat": "",
+          "fieldLayout": {
+              "Content": [
+                  "__ui_1"
+              ]
+          },
+          "fieldConfigs": {
+              "Content": {
+                  "__ui_1": {
+                      "type": "craft\\fieldlayoutelements\\EntryTitleField",
+                      "width": 100
+                  }
+              }
+          }
+      },
+      {
+          "sectionHandle": "variantAttributeOptionLabels",
+          "name": "Variant Attribute Option Labels",
+          "handle": "variantAttributeOptionLabels",
+          "hasTitleField": true,
+          "titleFormat": "",
+          "fieldLayout": {
+              "Content": [
+                  "__ui_1"
+              ]
+          },
+          "fieldConfigs": {
+              "Content": {
+                  "__ui_1": {
+                      "type": "craft\\fieldlayoutelements\\EntryTitleField",
+                      "width": 100
+                  }
+              }
+          }
+      },
+      {
+          "sectionHandle": "variantAttributeOptionValues",
+          "name": "Variant Attribute Option Values",
+          "handle": "variantAttributeOptionValues",
+          "hasTitleField": true,
+          "titleFormat": "",
+          "fieldLayout": {
+              "Content": [
+                  "__ui_1"
+              ]
+          },
+          "fieldConfigs": {
+              "Content": {
+                  "__ui_1": {
+                      "type": "craft\\fieldlayoutelements\\EntryTitleField",
+                      "width": 100
+                  }
+              }
+          }
+      },
+      {
+          "sectionHandle": "locations",
+          "name": "Winkel(s) Openingsuren",
+          "handle": "locations",
+          "hasTitleField": true,
+          "titleFormat": "",
+          "fieldLayout": {
+              "Content": [
+                  "__ui_1"
+              ]
+          },
+          "fieldConfigs": {
+              "Content": {
+                  "__ui_1": {
+                      "type": "craft\\fieldlayoutelements\\EntryTitleField",
+                      "width": 100
+                  }
+              }
+          }
+      }
+  ]
+}
