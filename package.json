@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "favicons": "npx real-favicon generate ./src/favicon/faviconDescription.json faviconData.json ./www/favicons && npx real-favicon inject faviconData.json ./templates/_layout/partials ./templates/_layout/partials/favicons.twig",
+    "favicons": "npx real-favicon generate ./src/favicon/faviconDescription.json ./src/favicon/faviconData.json ./www/favicons && npx real-favicon inject ./src/favicon/faviconData.json ./templates/_layout/partials ./templates/_layout/partials/favicons.twig",
     "db:pull": "./scripts/db_pull.sh",
     "db:push": "./scripts/db_push.sh",
     "assets:pull": "./scripts/assets_pull.sh",
