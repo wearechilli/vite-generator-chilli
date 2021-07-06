@@ -1,6 +1,8 @@
 {
   "require": {
     "craftcms/cms": "^3.6.4",
+    "craftcms/commerce": "3.3.4.1",
+    "craftcms/commerce-mollie": "^3.0",
     "craftcms/guest-entries": "^2.4",
     "craftcms/postmark": "^2.1",
     "craftcms/redactor": "^2.8",
