@@ -1,19 +1,17 @@
 {
-  "name": "vite-demo",
+  "name": "chilli-boilerplate",
   "version": "1.0.0",
-  "description": "A Vitejs demo site with Craft and Nitro",
+  "description": "A Craft CMS boilerplate with nitro ans vite.js",
   "author": "Sten Van den Bergh",
   "license": "ISC",
   "devDependencies": {
     "@vitejs/plugin-legacy": "^1.4.3",
     "autoprefixer": "^10.2.6",
     "cli-real-favicon": "0.0.8",
-    "dotenv": "^10.0.0",
     "eslint": "^7.29.0",
     "postcss": "^8.3.5",
     "postcss-import": "^14.0.2",
     "postcss-nested": "^5.0.5",
-    "shipit-cli": "^5.3.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "tailwindcss": "^2.2.4",
@@ -23,7 +21,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "favicons": "npx real-favicon generate ./src/favicon/faviconDescription.json faviconData.json ./www/favicons && npx real-favicon inject faviconData.json ./templates/_layout/partials ./templates/_layout/partials/favicons.twig"
+    "favicons": "npx real-favicon generate ./src/favicon/faviconDescription.json faviconData.json ./www/favicons && npx real-favicon inject faviconData.json ./templates/_layout/partials ./templates/_layout/partials/favicons.twig",
+    "db:pull": "./scripts/db_pull.sh",
+    "db:push": "./scripts/db_push.sh",
+    "assets:pull": "./scripts/assets_pull.sh",
+    "assets:push": "./scripts/assets_push.sh"
   },
   "dependencies": {
     "axios": "^0.21.1",
