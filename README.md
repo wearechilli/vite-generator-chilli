@@ -34,14 +34,14 @@ Push to your remote to deploy the current branch.
 
     git push combell
 
-## Shipit
+## Syncing database & assets
 
-Use shipit to pull remote database and assets. First copy the `.env.db.example` for each deployed branch, for example `.env.db.staging`.
+Inside `./scripts` you can find a set of bash scripts to sync databases and assets between local and remote. Run the scripts via npm:
 
-To pull the remote database or assets run:
-
-    npx shipit staging db:pull
-    npx shipit staging assets:pull
+    npm run db:pull master # the last argument is the branch name
+    npm run db:push master
+    npm run assets:pull staging
+    npm run assets:push staging
 
 ## Code Examples
 
