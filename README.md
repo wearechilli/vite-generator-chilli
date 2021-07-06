@@ -36,7 +36,7 @@ Push to your remote to deploy the current branch.
 
 ## Syncing database & assets
 
-Inside `./scripts` you can find a set of bash scripts to sync databases and assets between local and remote. Run the scripts via npm:
+Inside `./scripts` you can find a set of bash scripts to sync databases and assets between local and remote. Run the scripts via npm `npm run <task> <branch>`:
 
     npm run db:pull master # the last argument is the branch name
     npm run db:push master
