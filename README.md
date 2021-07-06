@@ -49,7 +49,28 @@ Make sure to check the `templates/examples.twig` file for frontend things that a
 
 ## Commerce
 
-Install commerce plugin and import `./commerce.json` with architect plugin.
+Install commerce plugin (make sure to upgrade to **pro** version) and import `./commerce.json` with architect plugin.
+
++ Create a product type called 'Catalog' and make sure it has **multiple variants**
++ Attach the field `shopCategory` to the 'Product Fields' tab
++ Attach the field `uniqueCombinationOfVariantAttributes` to the 'Variant Fields' tab
++ Create an order field tab called 'Extra Gegevens' and add the following fields:
+    - `pickupLocation`
+    - `pickupDate`
+    - `pickupTime`
+    - `orderNotes`
++ Depending on your project, add a PDF template and email template (email templates are provided in `_commerce/emails/order`)
++ Change payment currency to EUR
++ Set up a tax zone for Belgium, tax categories (one each for 21%, 6% and 0%) & according tax rates. The tax rate should all be 'already included in the taxable subject' and not applied with a valid VAT ID.
++ Create 3 shipping categories:
+    - `general` for shippable products
+    - `pickup` for products that can only be picked up at the store
+    - `letters` for things that fit in envelopes (like gift cards)
++ Create 3 shipping methods to match the 3 categories (look for similar sites for examples)
+
+### Preferred settings
+
+
 
 ## A word about the Craft Queue & Combell
 

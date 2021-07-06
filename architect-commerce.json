@@ -1,9 +1,107 @@
 {
+  "routes": [
+      {
+          "template": "_commerce\/account\/forgotPassword",
+          "uriParts": [
+              "wachtwoord-vergeten"
+          ]
+      },
+      {
+          "template": "_commerce\/checkout",
+          "uriParts": [
+              "afrekenen"
+          ]
+      },
+      {
+          "template": "_commerce\/cart",
+          "uriParts": [
+              "winkelmandje"
+          ]
+      },
+      {
+          "template": "_commerce\/checkout\/personalInfo",
+          "uriParts": [
+              "afrekenen\/persoonlijke-gegevens"
+          ]
+      },
+      {
+          "template": "_commerce\/checkout\/payment",
+          "uriParts": [
+              "afrekenen\/betaling"
+          ]
+      },
+      {
+          "template": "_commerce\/checkout\/order",
+          "uriParts": [
+              "afrekenen\/bestelling"
+          ]
+      },
+      {
+          "template": "_commerce\/checkout\/addresses\/edit",
+          "uriParts": [
+              "afrekenen\/adressen\/editeer"
+          ]
+      },
+      {
+          "template": "_commerce\/account",
+          "uriParts": [
+              "account"
+          ]
+      },
+      {
+          "template": "_commerce\/account\/login",
+          "uriParts": [
+              "account\/inloggen"
+          ]
+      },
+      {
+          "template": "_commerce\/account\/register",
+          "uriParts": [
+              "account\/registreren"
+          ]
+      },
+      {
+          "template": "_commerce\/account\/orders",
+          "uriParts": [
+              "account\/orders"
+          ]
+      },
+      {
+          "template": "_commerce\/account\/addresses",
+          "uriParts": [
+              "account\/adresboek"
+          ]
+      },
+      {
+          "template": "_commerce\/account\/addresses\/edit",
+          "uriParts": [
+              "account\/adresboek\/editeer"
+          ]
+      },
+      {
+          "template": "_commerce\/account\/changePassword",
+          "uriParts": [
+              "account\/wachtwoord-wijzigen"
+          ]
+      },
+      {
+          "template": "_commerce\/account\/changeEmail",
+          "uriParts": [
+              "account\/emailadres-wijzigen"
+          ]
+      },
+      {
+          "template": "_commerce\/account\/deleteAccount",
+          "uriParts": [
+              "account\/account-verwijderen"
+          ]
+      }
+  ],
   "fieldGroups": [
       "Text",
       "Tables",
-      "Form elements (checkboxes, dropdowns, ...)",
-      "Elements (entries, categories, products, ...)"
+      "Elements (entries, categories, products, ...)",
+      "Form elements (checkboxes, dropdowns, ...)"
   ],
   "categoryGroups": [
       {
@@ -215,6 +313,42 @@
               }
           ],
           "columnType": "text"
+      },
+      {
+          "group": "Elements (entries, categories, products, ...)",
+          "name": "Afhaalpunt",
+          "handle": "pickupLocation",
+          "instructions": "",
+          "type": "craft\\fields\\Entries",
+          "sources": [
+              "section:locations"
+          ],
+          "limit": "1",
+          "selectionLabel": "",
+          "showSiteMenu": false,
+          "localizeRelations": false,
+          "validateRelatedElements": false,
+          "allowSelfRelations": false
+      },
+      {
+          "group": "Text",
+          "name": "Bestelnotities",
+          "handle": "orderNotes",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "1",
+          "initialRows": "2"
+      },
+      {
+          "group": "Text",
+          "name": "Datum Ophaling",
+          "handle": "pickupDate",
+          "instructions": "",
+          "type": "craft\\fields\\Date",
+          "minuteIncrement": "30",
+          "dateTime": "showDate"
       },
       {
           "group": "Form elements (checkboxes, dropdowns, ...)",
@@ -458,6 +592,14 @@
           "localizeRelations": false,
           "validateRelatedElements": false,
           "allowSelfRelations": false
+      },
+      {
+          "group": "Text",
+          "name": "Uur Ophaling",
+          "handle": "pickupTime",
+          "instructions": "",
+          "type": "craft\\fields\\Time",
+          "minuteIncrement": 30
       },
       {
           "group": "Elements (entries, categories, products, ...)",
