@@ -36,7 +36,7 @@ Push to your remote to deploy the current branch.
 
 ## Syncing database & assets
 
-Inside `./scripts` you can find a set of bash scripts to sync databases and assets between local and remote. Run the scripts via npm `npm run <task> <branch>`:
+Inside `./scripts` you can find a set of bash scripts to sync databases and assets between local and remote. Fill in `SSH_REMOTE_USER` and `SSH_REMOTE_HOST` in your `.env` file and run the scripts via npm `npm run <task> <branch>`:
 
     npm run db:pull master
     npm run db:push staging
@@ -46,6 +46,10 @@ Inside `./scripts` you can find a set of bash scripts to sync databases and asse
 ## Code Examples
 
 Make sure to check the `templates/examples.twig` file for frontend things that are included in the boilerplate such as: SVG's, image transforms, modals, menu overlays, form elements, etc.
+
+## Commerce
+
+Install commerce plugin and import `./commerce.json` with architect plugin.
 
 ## A word about the Craft Queue & Combell
 
