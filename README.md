@@ -1,8 +1,8 @@
-# Chilli Boilerplate
+# Chilli starter project for Craft CMS
 
-Based on Craft CMS and Vite for frontend tooling
+A starter project based on nitro, craft cms & vite.js
 
-## Setup
+## ⚙️ Setup
 Setup your nitro container based upon this boilerplate. Make sure to use **PHP 7.4** to use **webp** images. This is because Imagick has not yet been updated to work with PHP 8.
 
     nitro create wearechilli/vite-generator-chilli your-site-folder
@@ -11,7 +11,7 @@ Install craft:
 
     nitro craft install/craft
 
-## Vite
+## ⚡️ Vite
 
 You must start Vite from within your container, to start vite run:
 
@@ -24,7 +24,7 @@ One issue currently in Vite is when referencing assets processed in Vite such as
 
 Because of this you  must use absolute url's in your app everywhere.
 
-## Deploying
+## ☁️ Deploying
 
 Deploying is done though Combell AutoGit. Make sure AutoGit is enabled in the project's service pack. Add the combell remote branch.
 
@@ -34,7 +34,7 @@ Push to your remote to deploy the current branch.
 
     git push combell
 
-## Syncing database & assets
+## 🗄 Syncing database & assets
 
 Inside `./scripts` you can find a set of bash scripts to sync databases and assets between local and remote. Fill in `SSH_REMOTE_USER` and `SSH_REMOTE_HOST` in your `.env` file and run the scripts via npm `npm run <task> <branch>`:
 
@@ -43,11 +43,11 @@ Inside `./scripts` you can find a set of bash scripts to sync databases and asse
     npm run assets:pull my-custom-branch
     npm run assets:push master
 
-## Code Examples
+## 🤓 Code Examples
 
 Make sure to check the `templates/examples.twig` file for frontend things that are included in the boilerplate such as: SVG's, image transforms, modals, menu overlays, form elements, etc.
 
-## Commerce
+## 💰 Commerce
 
 Install commerce plugin (make sure to upgrade to **pro** version) and import `./commerce.json` with architect plugin.
 
@@ -69,7 +69,7 @@ Install commerce plugin (make sure to upgrade to **pro** version) and import `./
     - `letters` for things that fit in envelopes (like gift cards)
 + Create 3 shipping methods to match the 3 categories (look for similar sites for examples)
 
-## A word about the Craft Queue & Combell
+## 🏃 A word about the Craft Queue & Combell
 
 Craft executes all kind of tasks via a queue system. Jobs (aka tasks) are added to the queue, and get executed. Unfortunately this queue only starts when someone logs into the control panel.
 
