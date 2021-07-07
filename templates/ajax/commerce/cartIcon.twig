@@ -1,0 +1,5 @@
+{% if not craft.app.request.isAjax %}
+  {% redirect '/' %}
+{% endif %}
+{% set totalQty = craft.app.request.getQueryParam('totalQty') %}
+{% include '_layout/partials/cartIcon' with { totalQty: totalQty } only %}

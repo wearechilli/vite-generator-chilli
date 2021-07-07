@@ -1,0 +1,54 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+{% import '_macros/imager' as transform %}
+{% import '_macros/form' as form %}
+
+{# Set variables #}
+{% if currentUser %}
+  {% redirect '/account' %}
+{% endif %}
+
+{% set addresses = craft.commerce.customers.customer.addresses|filter(address => address.fullName|default('') != 'Mr. Shipping Quote') %}
+
+{% block content %}
+<div class="container flex">
+  <div class="w-1/4 relative">
+    {% include '_commerce/account/partials/accountNav' %}
+  </div>
+  <div class="w-3/5">
+    <h1 class="text-2xl font-bold mb-10">Inloggen</h1>
+
+    {% set message = craft.app.session.getFlash('notice') %}
+    {% if message|default('') is not empty %}
+    <div class="text-sm mb-6 bg-border border border-border p-4">
+      <p>{{ message }}</p>
+    </div>
+    {% endif %}
+
+    <form method="post" accept-charset="UTF-8" class="js-validate">
+      {{ csrfInput() }}
+      {{ redirectInput('account') }}
+      <input type="hidden" name="action" value="users/login">
+
+      {% if errorMessage is defined %}
+        <div class="text-red-500 mb-6">{{ errorMessage }}</div>
+      {% endif %}
+
+      <div class="mb-6">
+        {{ form.input('', { placeholder: 'E-mailadres'|t, id: 'loginName', name: 'loginName', type: 'email', value: craft.app.user.rememberedUsername }) }}
+      </div>
+      <div class="mb-6">
+        {{ form.input('', { placeholder: 'Wachtwoord'|t, id: 'password', name: 'password', type: 'password'  }) }}
+      </div>
+      <div class="mb-6">
+        {{ form.checkbox('Onthoud me?', { name: 'rememberMe', id: 'rememberMe', value: '1', checked: false, required: false  }) }}
+      </div>
+
+      <div class="w-full flex items-start justify-between">
+        <a href="{{ url('/wachtwoord-vergeten') }}" class="underline">{{ 'Wachtwoord vergeten?'|t }}</a>
+        <button type="submit" class="button">{{ 'Inloggen'|t }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

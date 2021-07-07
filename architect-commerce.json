@@ -131,47 +131,8 @@
   ],
   "sections": [
       {
-          "name": "Ophaal Validatie Regels",
-          "handle": "pickupRules",
-          "type": "channel",
-          "enableVersioning": true,
-          "propagateEntries": true,
-          "siteSettings": [
-              {
-                  "hasUrls": false,
-                  "enabledByDefault": true
-              }
-          ]
-      },
-      {
-          "name": "Variant Attribute Option Labels",
-          "handle": "variantAttributeOptionLabels",
-          "type": "channel",
-          "enableVersioning": true,
-          "propagateEntries": true,
-          "siteSettings": [
-              {
-                  "hasUrls": false,
-                  "enabledByDefault": true
-              }
-          ]
-      },
-      {
           "name": "Variant Attribute Option Values",
           "handle": "variantAttributeOptionValues",
-          "type": "structure",
-          "enableVersioning": true,
-          "maxLevels": null,
-          "siteSettings": [
-              {
-                  "hasUrls": false,
-                  "enabledByDefault": true
-              }
-          ]
-      },
-      {
-          "name": "Winkel(s) Openingsuren",
-          "handle": "locations",
           "type": "structure",
           "enableVersioning": true,
           "maxLevels": null,
@@ -420,6 +381,28 @@
           "initialRows": "4"
       },
       {
+          "group": "Text",
+          "name": "Mail Bestelling Footer",
+          "handle": "mailOrderFooter",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "1",
+          "initialRows": "2"
+      },
+      {
+          "group": "Text",
+          "name": "Mail Bestelling Intro",
+          "handle": "mailOrderIntro",
+          "instructions": "",
+          "type": "craft\\fields\\PlainText",
+          "uiMode": "normal",
+          "code": "",
+          "multiline": "1",
+          "initialRows": "2"
+      },
+      {
           "group": "Tables",
           "name": "Nooit ophalen op",
           "handle": "pickupDisallowed",
@@ -620,46 +603,6 @@
   ],
   "entryTypes": [
       {
-          "sectionHandle": "pickupRules",
-          "name": "Ophaal Validatie Regels",
-          "handle": "pickupRules",
-          "hasTitleField": true,
-          "titleFormat": "",
-          "fieldLayout": {
-              "Content": [
-                  "__ui_1"
-              ]
-          },
-          "fieldConfigs": {
-              "Content": {
-                  "__ui_1": {
-                      "type": "craft\\fieldlayoutelements\\EntryTitleField",
-                      "width": 100
-                  }
-              }
-          }
-      },
-      {
-          "sectionHandle": "variantAttributeOptionLabels",
-          "name": "Variant Attribute Option Labels",
-          "handle": "variantAttributeOptionLabels",
-          "hasTitleField": true,
-          "titleFormat": "",
-          "fieldLayout": {
-              "Content": [
-                  "__ui_1"
-              ]
-          },
-          "fieldConfigs": {
-              "Content": {
-                  "__ui_1": {
-                      "type": "craft\\fieldlayoutelements\\EntryTitleField",
-                      "width": 100
-                  }
-              }
-          }
-      },
-      {
           "sectionHandle": "variantAttributeOptionValues",
           "name": "Variant Attribute Option Values",
           "handle": "variantAttributeOptionValues",
@@ -667,7 +610,8 @@
           "titleFormat": "",
           "fieldLayout": {
               "Content": [
-                  "__ui_1"
+                  "__ui_1",
+                  "variantAttributeLabel"
               ]
           },
           "fieldConfigs": {
@@ -675,25 +619,30 @@
                   "__ui_1": {
                       "type": "craft\\fieldlayoutelements\\EntryTitleField",
                       "width": 100
+                  },
+                  "variantAttributeLabel": {
+                      "width": 100
                   }
               }
           }
-      },
+      }
+  ],
+  "globalSets": [
       {
-          "sectionHandle": "locations",
-          "name": "Winkel(s) Openingsuren",
-          "handle": "locations",
-          "hasTitleField": true,
-          "titleFormat": "",
+          "name": "Commerce Mails",
+          "handle": "commerceMails",
           "fieldLayout": {
-              "Content": [
-                  "__ui_1"
+              "Inhoud": [
+                  "mailOrderIntro",
+                  "mailOrderFooter"
               ]
           },
           "fieldConfigs": {
-              "Content": {
-                  "__ui_1": {
-                      "type": "craft\\fieldlayoutelements\\EntryTitleField",
+              "Inhoud": {
+                  "mailOrderIntro": {
+                      "width": 100
+                  },
+                  "mailOrderFooter": {
                       "width": 100
                   }
               }

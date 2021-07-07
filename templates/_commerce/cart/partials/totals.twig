@@ -1,0 +1,48 @@
+{%- import '_macros/form' as form -%}
+
+{%- if cart is not defined -%}
+  {%- set cart = craft.commerce.carts.cart -%}
+{%- endif -%}
+
+{%- if cart.estimatedShippingAddressId -%}
+  {%- set estimatedCountryId = craft.commerce.addresses.getAddressById(cart.estimatedShippingAddressId).countryId -%}
+{%- endif -%}
+
+{% set correctTax = cart.totalTaxIncluded %}
+{% set correctTax = correctTax + (cart.totalShippingCost - (cart.totalShippingCost / (1 + 0.21))) %}
+
+<div class="text-sm">
+  {# Total of the line items without adjustments #}
+  <div class="flex justify-between mb-1"><span class="">subtotaal</span> <span>{{ cart.itemSubTotal|currency(cart.currency) }}</span></div>
+  {# Total sales, which are applied before an item is added to the cart #}
+  {% if cart.totalSaleAmount %}<div class="flex justify-between mb-1"><span class="">Afprijzingen</span> <span>{{ cart.totalSaleAmount|currency(cart.currency) }}</span></div>{% endif %}
+  {# Total discounts, which are applied after items are added to the cart (coupons etc.) #}
+  {% if cart.totalDiscount %}
+  <div class="flex justify-between mb-1"><span class="">kortingen</span> <span>{{ cart.totalDiscount|currency(cart.currency) }}</span></div>
+  {% endif %}
+  {# Total shipping costs #}
+  {% if cart.totalShippingCost %}
+  <div class="flex justify-between mb-1"><span class="">verzendkosten</span> <span>{{ cart.totalShippingCost|currency(cart.currency) }}</span></div>
+  {# <div class="text-gray-dark text-sm mb-2">({{ cart.shippingMethod.name|lower }})</div> #}
+  {% endif %}
+  {% if cart.getAdjustmentsTotalByType('taxDeducter') %}
+  <div class="mb-1 opacity-50">(<span>{{ cart.getAdjustmentsTotalByType('taxDeducter')|currency(cart.currency) }} btw afgetrokken</span>)</div>
+  {% elseif cart.totalTaxIncluded %}
+  <div class="mb-1 opacity-50">(<span class="">inclusief {{ correctTax|currency(cart.currency) }} btw</span>)</div>
+  {% endif %}
+  {% if not cart.isCompleted and craft.app.request.segments|first != 'afrekenen' and cart.shippingMethodHandle == 'delivery' and not cart.shippingAddress %}
+  <form method="POST" class="lowercase" action="{{ url(craft.app.request.pathInfo) }}">
+    <input type="hidden" name="action" value="commerce/cart/update-cart">
+    {{ redirectInput(craft.app.request.pathInfo) }}
+    {{ csrfInput() }}
+    <div class="flex items-center justify-between">
+      <label for="shippingAddressCountryId">{{ 'verander verzend bestemming'|t }}:</label>
+      {{ form.select('', { id: 'estimatedShippingAddress', name: 'estimatedShippingAddress[countryId]', value: estimatedCountryId|default(''), class: 'js-refresh-content', 'data-placeholder': '#cart-totals', 'data-fetch': url('ajax/commerce/totals'), }, craft.commerce.countries.getAllEnabledCountriesAsList|map((text, value) => { value: value, text: text })) }}
+    </div>
+  </form>
+  {% endif %}
+  {# The total amount of the order, with minimum value applied (settings) #}
+  <div class="flex justify-between text-lg mt-3 pt-3 border-t border-black"><span class="">totaalbedrag</span> <span>{{ cart.totalPrice|currency(cart.currency) }}</span></div>
+  {# The amount that was captured by the transaction #}
+  {# <div class="flex justify-between"><span class="font-bold">Bedrag betaald:</span> <span>{{ cart.totalPaid|currency(cart.currency) }}<span></div> #}
+</div>

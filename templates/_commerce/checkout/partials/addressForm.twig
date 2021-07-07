@@ -1,0 +1,57 @@
+{% import '_macros/form' as form %}
+
+{% set modelName = name|default('address') %}
+
+<div class="mb-6">
+  {{ form.input('', { placeholder: 'voornaam'|t, value: model and model.fullName|default('') != 'Mr. Shipping Quote' ? model.firstName : '', name: modelName~'[firstName]', id: modelName~'-firstName', autofocus: true }) }}
+</div>
+<div class="mb-6">
+  {{ form.input('', { placeholder: 'achternaam'|t, value: model and model.fullName|default('') != 'Mr. Shipping Quote' ? model.lastName : '', name: modelName~'[lastName]', id: modelName~'-lastName' }) }}
+</div>
+<div class="mb-6">
+  {{ form.input('', { placeholder: 'straat'|t, value: model ? model.address1 : '', name: modelName~'[address1]', id: modelName~'-address1' }) }}
+</div>
+<div class="mb-6 lg:flex">
+  <div class="lg:w-1/2 lg:pr-6 mb-6 lg:mb-0">
+    <div class="sm:flex sm:items-center items-start text-14 sm:flex-row flex-col">
+      <div class="flex-1">
+        {{ form.input('', { placeholder: 'huisnr.', value: model ? model.address2 : '', name: modelName~'[address2]', id: modelName~'-address2' }) }}
+      </div>
+    </div>
+  </div>
+  <div class="lg:w-1/2">
+    <div class="sm:flex sm:items-center items-start text-14 sm:flex-row flex-col">
+      <div class="flex-1">
+        {{ form.input('', { placeholder: 'bus', value: model ? model.address3 : '', name: modelName~'[address3]', id: modelName~'-address3', required: false }) }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mb-6">
+  {{ form.input('', { placeholder: 'Postcode'|t, value: model ? model.zipCode : '', name: modelName~'[zipCode]', id: modelName~'-zipCode' }) }}
+</div>
+<div class="mb-6">
+  {{ form.input('', { placeholder: 'Gemeente'|t, value: model ? model.city : '', name: modelName~'[city]', id: modelName~'-city' }) }}
+</div>
+<div class="mb-6">
+  {{ form.input('', { placeholder: 'Telefoon'|t, value: model ? model.phone : '', name: modelName~'[phone]', id: modelName~'-phone', required: true }) }}
+</div>
+
+<div class="mb-6">
+  {{ form.select('', { name: modelName~'[countryId]', id: modelName~'-countryId', value: model ? model.countryId : craft.commerce.countries.getCountryByIso('BE').id, required: true }, craft.commerce.countries.getAllEnabledCountriesAsList|map((text, value) => { value: value, text: text })) }}
+</div>
+
+<div class="mb-6">
+  {{ form.checkbox('Zakelijk adres?'|t, { name: modelName~'-isBusinessAddress', id: modelName~'-isBusinessAddress', value: '1', required: false, checked: (model.businessName|default('') is not empty) ? true : false, class: 'js-toggle', 'data-target': "##{modelName}-business" }) }}
+</div>
+<div class="{{ model.businessName|default('') is empty ? 'hidden' }}" id="{{ modelName }}-business">
+  <div class="mb-6">
+    {{ form.input('', { placeholder: 'Bedrijfsnaam'|t, value: model ? model.businessName : '', name: modelName~'[businessName]', id: modelName~'-businessName', required: (model.businessName|default('') is empty) ? false : true }) }}
+  </div>
+  <div class="mb-6">
+    {{ form.input('', { placeholder: 'BTW nummer'|t, value: model ? model.businessTaxId : '', name: modelName~'[businessTaxId]', id: modelName~'-businessTaxId', required: (model.businessName|default('') is empty) ? false : true }) }}
+    {% if address is defined and address.getErrors('businessTaxId') %}
+      <div class="text-red-500 text-right text-14 mt-2">{{ address.getErrors('businessTaxId')|join }}</div>
+    {% endif %}
+  </div>
+</div>

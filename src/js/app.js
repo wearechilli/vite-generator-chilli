@@ -25,6 +25,7 @@ class App {
     if (document.querySelector('.js-validate')) import(/* webpackChunkName: "validation-component" */ './components/validation').then(({ default: Module }) => new Module());
     if (document.querySelector('.fade-in')) import(/* webpackChunkName: "fader-component" */ './components/fader').then(({ default: Module }) => new Module());
     if (document.querySelector('.js-modal')) this.modalModule = import(/* webpackChunkName: "modal" */ './components/modal');
+    import(/* webpackChunkName: "commerce-component" */ './components/commerce').then(({ default: Module }) => new Module());
   }
 
   addEvents() {

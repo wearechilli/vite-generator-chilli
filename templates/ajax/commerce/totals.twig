@@ -1,0 +1,4 @@
+{% if not craft.app.request.isAjax %}
+  {% redirect '/' %}
+{% endif %}
+{% include '_commerce/cart/partials/totals' with { isCartIndex: true } %}

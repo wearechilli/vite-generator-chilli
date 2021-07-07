@@ -1,0 +1,39 @@
+{% set pages = [] %}
+
+{% if currentUser %}
+  {% set pages = pages|merge([
+    {
+      title: 'E-mailadres wijzigen'|t,
+      url: url('account/emailadres-wijzigen')
+    },
+    {
+      title: 'Wachtwoord wijzigen'|t,
+      url: url('account/wachtwoord-wijzigen')
+    },
+    {
+      title: 'Adresboek'|t,
+      url: url('account/adresboek')
+    },
+    {
+      title: 'Uitloggen'|t,
+      url: logoutUrl
+    },
+  ]) %}
+{% else %}
+  {% set pages = pages|merge([
+    {
+      title: 'Inloggen'|t,
+      url: url('account/inloggen')
+    },
+    {
+      title: 'Registreren'|t,
+      url: url('account/registreren')
+    }
+  ]) %}
+{% endif %}
+
+<ul class="">
+  {% for item in pages %}
+  <li class="mx-2"><a href="{{ item.url }}" class="hover:underline {{ item.url == craft.app.request.absoluteUrl ? 'text-blue-500 font-bold' }}">{{ item.title }}</a></li>
+  {% endfor %}
+</ul>

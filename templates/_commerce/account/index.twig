@@ -1,0 +1,6 @@
+{# Set variables #}
+{% if not currentUser %}
+  {% redirect 'account/inloggen' %}
+{% else %}
+  {% redirect 'account/adresboek' %}
+{% endif %}

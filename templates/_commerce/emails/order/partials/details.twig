@@ -1,0 +1,95 @@
+<table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+  <tr>
+    <td class="attributes_content">
+      <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>Bestelling referentie:</strong> {{ order.reference }}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>E-mailadres:</strong> {{ order.email }}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>Besteld op:</strong> {{ order.dateOrdered|date('d M Y') }}
+            </span>
+          </td>
+        </tr>
+        {% if order.shippingMethodHandle == 'delivery' %}
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>Bezorgadres</h:</strong> {% include '_commerce/checkout/partials/addressString' with { address: order.shippingAddress } %}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>Factuuradres:</strong>
+              {% if order.billingAddressId == order.shippingAddressId %}
+                Zelfde als bezorgadres
+              {% else %}
+                {% include '_commerce/checkout/partials/addressString' with { address: order.billingAddress } %}
+              {% endif %}
+            </span>
+          </td>
+        </tr>
+        {% endif %}
+        {% if order.shippingMethodHandle == 'pickup' %}
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>Gegevens</h:</strong> {% include '_commerce/checkout/partials/addressString' with { address: order.billingAddress } %}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>Ophaalpunt:</strong><br>
+              {% set pickupLocation = order.pickupLocation.one() %}
+              {% if pickupLocation %}
+              {{ pickupLocation.title }}<br>
+              {{ pickupLocation.address1 }}<br>
+              {{ pickupLocation.zipCode }} {{ pickupLocation.city }}
+              {% endif %}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>Datum:</strong> {{ order.pickupDate|date('d/m/Y') }}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>Uur:</strong> {{ order.pickupTime|date('H:i') }}
+            </span>
+          </td>
+        </tr>
+        {% endif %}
+        {% if order.orderNotes is not empty %}
+        <tr>
+          <td class="attributes_item">
+            <span class="f-fallback">
+              <strong>Notities:</strong> {{ order.orderNotes }}
+            </span>
+          </td>
+        </tr>
+        {% endif %}
+      </table>
+    </td>
+  </tr>
+</table>

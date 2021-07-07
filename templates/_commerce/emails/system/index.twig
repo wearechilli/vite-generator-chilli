@@ -1,0 +1,18 @@
+{% extends '_emails/layout' %}
+
+{% block content %}
+  {% switch emailKey %}
+    {% case 'account_suspended' %}
+      {% include '_emails/system/suspended' %}
+    {% case 'forgot_password' %}
+      {% include '_emails/system/forgotPassword' %}
+    {% case 'account_activation' %}
+      {% include '_emails/system/activation' %}
+    {% case 'verify_new_email' %}
+      {% include '_emails/system/verifyNewEmail' %}
+    {% case 'business-logic_contact-admin-notification' %}
+      {% include '_emails/contact/admin' %}
+    {% case 'business-logic_contact-client-notification' %}
+      {% include '_emails/contact/client' %}
+  {% endswitch %}
+{% endblock %}

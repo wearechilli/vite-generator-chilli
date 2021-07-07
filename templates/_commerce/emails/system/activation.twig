@@ -1,0 +1,63 @@
+{% extends '_emails/layout' %}
+{% import '_macros/img-macros' as transform %}
+
+{% set hasPassword = ('set-password' in link) ? 0 : 1 %}
+
+{% block content %}
+<span class="preheader">Vervolledig je account bij {{ systemName }}</span>
+<table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+  <tr>
+    <td align="center">
+      <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+        {% include '_emails/partials/header' %}
+        <!-- Email Body -->
+        <tr>
+          <td class="email-body" width="570" cellpadding="0" cellspacing="0">
+            <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+              <!-- Body content -->
+              <tr>
+                <td class="content-cell">
+                  <div class="f-fallback">
+                    {# <h1>Dag {{ user.friendlyName }},</h1> #}
+                    {% if hasPassword %}
+                    <p>Wij hebben een account voor je aangemaakt. Klik op onderstaande knop om je e-mailadres te verifiëren.</p>
+                    {% else %}
+                    <p>Om je account aan te maken bij {{ systemName }}, dien je op onderstaande link je wachtwoord in te stellen.</p>
+                    {% endif %}
+                    <!-- Action -->
+                    <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td align="center">
+                          <!-- Border based button
+                          https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
+                          <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+                            <tr>
+                              <td align="center">
+                                <a href="{{ link }}" class="f-fallback button button--green" target="_blank">{{ hasPassword ? 'Verifiëer' : 'Kies je wachtwoord' }}</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                    <!-- Sub copy -->
+                    <table class="body-sub" role="presentation">
+                      <tr>
+                        <td>
+                          <p class="f-fallback sub">Als je problemen hebt om bovenstaande knop te openen, kopieer dan ondersteende URL in je browser.</p>
+                          <p class="f-fallback sub">{{ link }}</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        {% include '_emails/partials/footer' %}
+      </table>
+    </td>
+  </tr>
+</table>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% set steps = [
+  {
+    title: 'E-mailadres'|t,
+    url: url('afrekenen')
+  },
+  {
+    title: 'Persoonlijke gegevens'|t,
+    url: url('afrekenen/persoonlijke-gegevens')
+  },
+  {
+    title: 'Betaling'|t,
+    url: url('afrekenen/betaling')
+  }
+] %}
+
+<ul class="flex flex-wrap -mx-2 mb-12">
+  {% for item in steps %}
+  <li class="mx-2"><a href="{{ item.url }}" class="hover:underline {{ step < loop.index ? 'opacity-25' }} {{ step == loop.index ? 'text-blue-500 font-bold' }}">{{ item.title}}{{ step > loop.index ? '&nbsp;&check;' }}</a></li>
+  {% endfor %}
+</ul>

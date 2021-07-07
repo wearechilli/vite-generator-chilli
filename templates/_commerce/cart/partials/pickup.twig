@@ -1,0 +1,89 @@
+{# Layouts and macros #}
+{% import '_macros/form' as form %}
+
+{# Pickup select (or hidden field) #}
+{% set locations = [{ value: '', text: 'Kies je afhaalpunt' }] %}
+{% for item in craft.entries.section('locations').all() %}
+  {% set locations = locations|merge([{ value: item.id, text: item.title }]) %}
+{% endfor %}
+
+{# Pickup dates and hours #}
+{% set locationsPickupTimes = craft.pickupRulesModule.locationPickupTimes %}
+
+{# Output the big array in JavaScript so we can work with it #}
+{% js %}window.locationsPickupTimes = {
+  {% for location, dates in locationsPickupTimes %}
+  '{{ location }}': [
+    { day: 'datum van ophalen', pickupTimes: [] },
+    {% for date in dates|sort((a, b) => date(a.day) > date(b.day)) %}
+    {# {% if date(date.day) < date('+ 2 weeks') %} #}
+    { day: '{{ date(date.day)|atom }}', pickupTimes: [
+      'tijd van ophalen',
+      {% for interval in date.openingHours %}
+      '{{ interval|atom }}',
+      {% endfor %}
+    ] },
+    {# {% endif %} #}
+    {% endfor %}
+  ],
+  {% endfor %}
+}{% endjs %}
+
+{# Output HTML #}
+{% if locations|length == 2 %}
+  {# Only 1 shop exists, length = 2 because first value is always a empty label #}
+  <input type="hidden" name="fields[pickupLocation][]" value="{{ attribute(locations|last, 'value') }}" />
+{% else %}
+<div class="mb-6">
+  {# Choose between multiple pickup points #}
+  <label for="pickupLocation" class="block mb-2">{{ 'Afhaalpunt'|t }}</label>
+  {{ form.select('', { name: 'fields[pickupLocation][]', id: 'pickupLocation', value: cart.pickupLocation.one().id|default(''), class: 'border border-green-800 js-pickup-select js-refresh-totals', required: true }, locations) }}
+</div>
+{% endif %}
+
+<div class="mb-6">
+  {% if cart.pickupDate and cart.pickupLocation.one() and craft.pickupRulesModule.validPickupDate %}
+    {% set savedLocationDays = [] %}
+    {% for day in locationsPickupTimes[cart.pickupLocation.one().id] %}
+      {# {% if date(day.day) < date('+ 2 weeks') %} #}
+        {% set savedLocationDays = savedLocationDays|merge([{ value: day.day|atom, text: day.day|date('l j/n/Y') }]) %}
+      {# {% endif %} #}
+    {% endfor %}
+  {% endif %}
+
+  {# <label for="pickupDate" class="block mb-2">{{ 'Datum van ophalen'|t }}</label> #}
+  {{ form.select('', {
+      name: 'fields[pickupDate]',
+      id: 'pickupDate',
+      value: cart.pickupDate|atom|default(''),
+      class: 'border border-green-800 js-pickupdate-select js-refresh-totals',
+      required: true
+    },
+    savedLocationDays|default([])|reverse(1)) }}
+</div>
+<div class="mb-6">
+  {% if cart.pickupDate and cart.pickupTime and cart.pickupLocation.one() %}
+    {% set savedLocationTimes = [] %}
+    {# Some extra logic to make sure the interval slots are not after closing time #}
+    {% set pickupTimes = locationsPickupTimes[cart.pickupLocation.one().id]|filter(el => date(el.day) == date(cart.pickupDate))|first.openingHours|default([]) %}
+    {% set closingTime = pickupTimes|slice(-1, 1)|first %}
+    {% set pickupTimes = pickupTimes|slice(0, pickupTimes|length-1)|reverse %}
+    {% for time in pickupTimes %}
+      {% if loop.first %}
+        {% set savedLocationTimes = savedLocationTimes|merge([{ value: time|atom, text: "#{time|time('short')} - #{closingTime|time('short')}" }]) %}
+      {% else %}
+        {% set savedLocationTimes = savedLocationTimes|merge([{ value: time|atom, text: "#{time|time('short')} - #{time|date_modify('+ 2 hours')|time('short')}" }]) %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {# <label for="pickupTime" class="block mb-2">{{ 'Tijd van ophalen'|t }}</label> #}
+  {{ form.select('', {
+    name: 'fields[pickupTime]',
+    id: 'pickupTime',
+    value: cart.pickupTime|atom|default(''),
+    class: 'border border-green-800 js-pickuptime-select js-refresh-totals',
+    required: true
+  },
+  savedLocationTimes|default([])|reverse(1)) }}
+</div>

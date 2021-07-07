@@ -1,0 +1,90 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+{% import '_macros/imager' as transform %}
+{% import '_macros/form' as form %}
+
+{% do seomatic.meta.seoTitle('Afrekenen') %}
+
+{# Set variables #}
+{% if cart is not defined %}
+  {% set cart = craft.commerce.carts.cart %}
+{% endif %}
+
+{% if not cart.email or not cart.lineItems|length %}
+  {% redirect 'afrekenen' %}
+{% endif %}
+
+{% if (not cart.shippingAddressId and cart.shippingMethodHandle == 'delivery') or (not cart.billingAddressId and cart.shippingMethodHandle == 'pickup') or (cart.shippingAddress.address2 is empty and cart.shippingMethodHandle == 'delivery') %}
+  {% redirect 'afrekenen/persoonlijke-gegevens' %}
+{% endif %}
+
+{% if cart.shippingMethodHandle == 'pickup'
+  and (not cart.pickupDate or not craft.pickupRulesModule.validPickupDate) %}
+  {% redirect 'winkelmandje' %}
+{% endif %}
+
+{% block content %}
+<div class="container flex">
+  <div class="sm:w-2/3 sm:pr-4">
+    {% include '_commerce/checkout/partials/checkoutNav' with { step: 3 } %}
+
+    <h2 class="text-2xl font-bold mb-10">Betaalmethode</h2>
+
+    <form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" class="js-validate">
+      <input type="hidden" name="action" value="commerce/payments/pay"/>
+      {{ redirectInput('afrekenen/bestelling?number='~cart.number) }}
+      <input type="hidden" name="cancelUrl" value="{{ '/afrekenen/betaling'|hash }}"/>
+      <input type="hidden" name="orderEmail" value="{{ cart.email }}"/>
+      {{ csrfInput() }}
+
+      {% if cart.gatewayId %}
+      <input type="hidden" name="gatewayId" value="{{ cart.gatewayId }}"/>
+
+      <div class="payment-radio">
+        {% for paymentMethod in cart.gateway.fetchPaymentMethods() %}
+          <div class="mb-6">
+            {{ form.radio('<div class="inline-flex items-start"><img src="'~url('mollie/payment-methods/'~paymentMethod.id~'@2x.png')~'" width="32" height="24" class="mr-4 ml-2" alt="'~paymentMethod.name~'" />' ~ paymentMethod.name~'</div>', {
+              name: 'paymentMethod',
+              id: "paymentMethod-#{paymentMethod.id}",
+              value: paymentMethod.id,
+              class: (paymentMethod.id == 'ideal' or paymentMethod.id == 'kbc') ? 'js-toggle' : '',
+              'data-target': (paymentMethod.id == 'ideal' or paymentMethod.id == 'kbc') ? "##{paymentMethod.id}-banks" : ''
+            }) }}
+
+            {% if paymentMethod.id == 'ideal' %}
+            <div class="hidden pl-12 pt-2" id="ideal-banks">
+              {% set options = [] %}
+              {% for issuer in cart.gateway.fetchIssuers() %}
+                {% set options = options|merge([{ value: issuer.id, text: issuer.name }]) %}
+              {% endfor %}
+              {{ form.select('Kies je bank'|t, { name: 'issuer', id: 'issuer', required: true }, options) }}
+            </div>
+            {% endif %}
+
+            {% if paymentMethod.id == 'kbc' %}
+            <div class="hidden pl-12 pt-2" id="kbc-banks">
+              {% set options = [
+                { value: 'kbc', text: 'KBC',
+                }, { value: 'cbc', text: 'CBC' }
+                ] %}
+              {{ form.select('Kies je bank'|t, { name: 'issuer', id: 'issuer', required: true }, options) }}
+            </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="flex justify-end">
+        <button type="submit" class="button">{{ 'Betaal'|t }} {{ cart.totalPrice|commerceCurrency(cart.currency) }}</button>
+      </div>
+    </form>
+  </div>
+  <div class="sm:w-1/3 sm:pl-4">
+    <div class="p-4 border-4 border-blue-500">
+      {% include '_commerce/checkout/partials/cart' %}
+      {% include '_commerce/checkout/partials/pickup' %}
+    </div>
+  </div>
+</div>
+{% endblock %}

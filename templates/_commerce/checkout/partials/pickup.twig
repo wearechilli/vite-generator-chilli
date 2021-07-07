@@ -1,0 +1,23 @@
+{% if cart.shippingMethodHandle == 'pickup' %}
+  {% if not cart.isCompleted %}
+  <h3 class="text-xl font-bold my-10">
+    ophalen
+    {% if not cart.isCompleted %}
+    <a href="{{ url('winkelmandje') }}" class="text-sm underline">(aanpassen)</a>
+    {% endif %}
+  </h3>
+  {% endif %}
+  <div>
+    <div class="mb-10">
+      <div class="flex justify-between">
+        <div>Ophaalpunt: {{ cart.pickupLocation.one().title }}</div>
+      </div>
+      <div class="flex justify-between">
+        <div>Datum: {{ cart.pickupDate|date('d/m/Y') }}</div>
+      </div>
+      <div class="flex justify-between">
+        <div>Uur: {{ cart.pickupTime|date('H:i') }}</div>
+      </div>
+    </div>
+  </div>
+{% endif %}

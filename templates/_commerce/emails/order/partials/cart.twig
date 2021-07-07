@@ -1,0 +1,23 @@
+{% import '_macros/imager' as transform %}
+<table class="purchase" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+  <tr>
+    <td colspan="2">
+      <table class="purchase_content" width="100%" cellpadding="0" cellspacing="0">
+        {% for item in order.lineItems|default([]) %}
+        <tr>
+          <td class="purchase_item">
+            {% if item.purchasable and item.purchasable.product %}
+            {{ transform.image(item.purchasable.product.image.one()|default('https://picsum.photos/seed/{{ product.slug }}/62'), { width: 62, height: 62 }, { class: ['block', 'mr-4'] }) }}
+            {% endif %}
+          </td>
+          <td width="100%" class="purchase_item">
+            <span class="f-fallback">
+              {{ item.description }} {{ item.purchasable.uniqueCombinationOfVariantAttributes.select('title').column()|join(', ') }} {{ item.qty > 1 ? "×#{item.qty}" }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,62 @@
+{% extends '_commerce/emails/layout' %}
+
+{# For testing purposes: #}
+{% if order is not defined %}
+  {% set order = craft.orders().one() %}
+{% endif %}
+{% set siteId = craft.app.sites.getAllSites()|filter(site => site.language == order.orderLanguage)|first.id|default(1) %}
+
+{% block content %}
+<span class="preheader">This is a receipt for your recent purchase on { purchase_date }. No payment is due with this receipt.</span>
+<table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+  <tr>
+    <td align="center">
+      <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+        {% include '_commerce/emails/partials/header' %}
+        <!-- Email Body -->
+        <tr>
+          <td class="email-body" width="100%" cellpadding="0" cellspacing="0">
+            <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+              <!-- Body content -->
+              <tr>
+                <td class="content-cell">
+                  <div class="f-fallback">
+                    <h1>Bestelling #{{ order.reference }}</h1>
+                    <!-- Action -->
+                    <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td align="center">
+                          <!-- Border based button
+                          https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
+                          <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+                            <tr>
+                              <td align="center">
+                                <a href="{{ getenv('DEFAULT_SITE_URL') ~ '/' ~ order.cpEditUrl }}" class="f-fallback button button--blue" target="_blank">Bekijk deze bestelling online</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <hr class="border-none h-px bg-gray-200 my-8">
+
+                    <h2>Bestelde producten</h2>
+
+                    {% include '_commerce/emails/order/partials/cart' %}
+
+                    <h2 class="my-8">Bestelling gegevens</h2>
+
+                    {% include '_commerce/emails/order/partials/details' %}
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        {% include '_commerce/emails/partials/footer' %}
+      </table>
+    </td>
+  </tr>
+</table>
+{% endblock %}

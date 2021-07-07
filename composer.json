@@ -6,6 +6,7 @@
     "craftcms/guest-entries": "^2.4",
     "craftcms/postmark": "^2.1",
     "craftcms/redactor": "^2.8",
+    "enovatedesign/craft-style-inliner": "^2.3",
     "nystudio107/craft-seomatic": "^3.3",
     "nystudio107/craft-vite": "1.0.11",
     "pennebaker/craft-architect": "^2.4",
@@ -18,7 +19,9 @@
   },
   "autoload": {
     "psr-4": {
-      "modules\\": "modules/"
+      "modules\\businesslogicmodule\\": "modules/businesslogicmodule/src/",
+      "modules\\pickuprulesmodule\\": "modules/pickuprulesmodule/src/",
+      "modules\\shopadjustersmodule\\": "modules/shopadjustersmodule/src/"
     }
   },
   "config": {

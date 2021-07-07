@@ -1,0 +1,125 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+{% import '_macros/imager' as transform %}
+
+{# Set variables  #}
+{% set cart = craft.commerce.carts.cart %}
+
+{# Get product pickup rules #}
+{% set pickupRules = craft.entries.section('pickupRules').select('field_pickupRuleMessage').relatedTo([
+  'or',
+  { targetElement: product },
+  { targetElement: product.shopCategory.all()|default([]) }
+]).column() %}
+
+{# Get all options (and their labels) for this product #}
+{% set variantAttributesValues = craft.entries.section('variantAttributeOptionValues').relatedTo(product.variants|filter(el => el.enabled)).all() %}
+{% set variantAttributesLabels = craft.entries.section('variantAttributeOptionLabels').relatedTo(variantAttributesValues|default([0])).all() %}
+
+{# Get the current set of options #}
+{% set selectedOptions = craft.app.request.getBodyParam('options') %}
+{% if selectedOptions is null %}
+  {% set selectedOptions = [] %}
+  {% for item in product.defaultVariant.uniqueCombinationOfVariantAttributes.all() %}
+    {% set selectedOptions = selectedOptions|merge({(item.variantAttributeLabel.one().slug): item.id}) %}
+  {% endfor %}
+{% endif %}
+
+{# Set the current variant based on the chosen options #}
+{# We should have a fallback for if this fails #}
+{% set filteredVariants = product.variants|filter(el => el.enabled) %}
+{% for option, value in selectedOptions %}
+  {% set filteredVariants = filteredVariants|filter(el => value in el.uniqueCombinationOfVariantAttributes.ids()) %}
+{% endfor %}
+{% set filteredVariants = filteredVariants|first|default(null) %}
+
+{# Set current variant, fallback to default #}
+{% set currentVariant = filteredVariants|default(product.defaultVariant) %}
+{% set currentVariantOptionIds = currentVariant.uniqueCombinationOfVariantAttributes.ids() %}
+
+{# Alpine.js data source #}
+{% js at head %}
+window.product{{ product.id }}Prices = function() {
+  return {
+    getCurrentVariant() {
+      return this.variants.find((el) => el.id === this.currentVariant);
+    },
+    getCurrentVariantStock() {
+      const variant = this.getCurrentVariant();
+      if (variant.stock === '') return '';
+      return this.getCurrentVariant().stock;
+    },
+    currentVariant: {{ currentVariant.id }},
+    variants: [
+      {% for item in product.variants|filter(el => el.enabled) %}
+      {
+        id: {{ item.id }},
+        onSale: {{ item.onSale ? 'true' : 'false' }},
+        price: '{{ item.price|currency(cart.currency) }}',
+        salePrice: '{{ item.salePrice|currency(cart.currency) }}',
+        stock: {{ item.hasUnlimitedStock ? "''" : item.stock }},
+      },
+      {% endfor %}
+    ]
+  };
+}
+{% endjs %}
+{% block content %}
+<div class="container">
+  <div class="flex flex-wrap">
+    <div class="sm:w-1/2 sm:pr-4">
+      {{ transform.image(product.image.one()|default('https://picsum.photos/seed/{{ product.slug }}/800/800'), { width: 800 }) }}
+    </div>
+    <div class="sm:w-1/2 sm:pl-4">
+      <form method="post" x-data="product{{ product.id }}Prices()" class="lg:w-2/3 js-validate" action="{{ url(craft.app.request.pathInfo) }}" accept-charset="UTF-8" enctype="multipart/form-data">
+        {# Start hidden inputs #}
+        {{ actionInput('commerce/cart/update-cart') }}
+        {{ csrfInput() }}
+        {{ variantAttributesLabels|length != 1 ? hiddenInput('purchasableId', currentVariant.id) }}
+        {{ not cart.estimatedShippingAddressId ? hiddenInput('estimatedShippingAddress[countryId]', estimatedCountryId|default(craft.commerce.countries.getCountryByIso('BE').id)) }}
+        {{ not cart.shippingMethodHandle ? hiddenInput('shippingMethodHandle', 'delivery') }}
+        {{ redirectInput('winkelmandje') }}
+        {# End hidden inputs #}
+
+        <h1 class="text-2xl font-bold mb-10">{{ product.title }}</h1>
+
+        <div class="mb-10">
+          {% include '_commerce/shop/partials/price' with { variant: currentVariant, cart: cart } only %}
+        </div>
+
+        {# Does this product relate to specific pickup restrictions? #}
+        {% if pickupRules %}
+          <div class="mb-10 text-sm text-white bg-blue-500 py-2 px-3">
+          {% for message in pickupRules %}
+            {{ message|raw }}
+          {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if product.availableForPurchase %}
+        {# Prive field and variant(s) #}
+        <div class="mb-10">
+          {% include '_commerce/shop/partials/priceVariants' %}
+        </div>
+        {% endif %}
+
+        {% if product.availableForPurchase %}
+        <template x-if="getCurrentVariant().stock >= 1 || getCurrentVariant().stock === ''">
+          <div class="flex flex-wrap items-center justify-between sm:justify-start">
+            {% include '_commerce/shop/partials/spinner' with { isProduct: true, name: 'qty', variant: currentVariant, cart: cart } only %}
+
+            <button type="submit" name="action" value="commerce/cart/update-cart" class="button js-buy sm:ml-4" data-style="zoom-out" data-spinner-color="#000">in winkelmandje</button>
+          </div>
+        </template>
+
+        <template x-if="getCurrentVariant().stock === 0">
+          <div class="bg-red-100 px-4 py-3 border border-red-200 text-red-500">Momenteel niet beschikbaar</div>
+        </template>
+        {% else %}
+          <div class="bg-red-100 px-4 py-3 border border-red-200 text-red-500">Momenteel niet beschikbaar</div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

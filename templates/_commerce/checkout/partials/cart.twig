@@ -1,0 +1,32 @@
+{% import '_macros/imager' as transform %}
+
+{% if cart.lineItems|length %}
+  <h3 class="text-xl font-bold mb-10">
+    {% if cart.isCompleted %}
+    bestelling #{{ cart.reference }}
+    {% else %}
+    winkelmandje
+    <a href="{{ url('winkelmandje') }}" class="text-sm underline">(aanpassen)</a>
+    {% endif %}
+  </h3>
+
+  <div class="text-sm border-b border-black">
+    {% for item in cart.lineItems %}
+    <div class="mb-10 flex items-center justify-between">
+      <div class="mr-3">
+        {{ transform.image(item.purchasable.product.images.one()|default('https://picsum.photos/seed/{{ product.slug }}/70'), { width: 50, height: 50 }) }}
+      </div>
+      <div class="flex-grow">
+        {{ item.description }} {{ item.purchasable.uniqueCombinationOfVariantAttributes.select('title').column()|join(', ') }} {{ item.qty > 1 ? "×#{item.qty}" }}
+      </div>
+      <div class="w-1/4 text-right">
+        {% include '_commerce/shop/partials/price' with { variant: item } %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="w-4/5 ml-auto mt-10">
+    {% include '_commerce/cart/partials/totals' with { cart: cart, isSidebar: true } %}
+  </div>
+{% endif %}

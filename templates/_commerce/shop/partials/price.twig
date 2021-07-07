@@ -1,0 +1,9 @@
+{# Set default variables #}
+{% set price = variant.price %}
+{% set salePrice = variant.salePrice %}
+{% if cart is not defined %}
+  {% set cart = craft.commerce.carts.cart %}
+{% endif %}
+
+<span x-text="getCurrentVariant().price" class="{{ variant.onSale ? 'line-through' }}" :class="{ 'line-through': getCurrentVariant().onSale }">{{ price|currency(cart.currency) }}</span>
+<span x-show="getCurrentVariant().onSale" x-text="getCurrentVariant().salePrice" class="text-red-500" {{ not variant.onSale ? 'style="display: none;"' }}>{{ salePrice|currency(cart.currency) }}</span>

@@ -51,6 +51,7 @@ Make sure to check the `templates/examples.twig` file for frontend things that a
 
 Install commerce plugin (make sure to upgrade to **pro** version) and import `./commerce.json` with architect plugin.
 
++ Install Mollie plugin (payment gateway), Style Inliner (commerce emails) and optionally Snaptcha (spam)
 + Create a product type called 'Catalog' and make sure it has **multiple variants**
 + Attach the field `shopCategory` to the 'Product Fields' tab
 + Attach the field `uniqueCombinationOfVariantAttributes` to the 'Variant Fields' tab
@@ -61,7 +62,7 @@ Install commerce plugin (make sure to upgrade to **pro** version) and import `./
     - `orderNotes`
 + Depending on your project, add a PDF template and email template (email templates are provided in `_commerce/emails/order`)
 + Change payment currency to EUR
-+ Set up a tax zone for Belgium, tax categories (one each for 21%, 6% and 0%) & according tax rates. The tax rate should all be 'already included in the taxable subject' and not applied with a valid VAT ID.
++ Set up a tax zone for Belgium, tax categories (one each for 21%, 6% and 0%) & according tax rates. The tax rates should all be 'already included in the taxable subject' and not applied with a valid VAT ID.
 + Create 3 shipping categories:
     - `general` for shippable products
     - `pickup` for products that can only be picked up at the store

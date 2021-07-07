@@ -1,0 +1,23 @@
+<div class="inline-flex items-center justify-between js-spinner bg-white border border-black h-10">
+  <button type="button" class="w-6 h-6 flex justify-center items-center rounded-full leading-none" data-decrease>-</button>
+  <div>
+    <input
+      class="mx-2 w-10 sm:w-12 h-10 text-base bg-transparent text-center appearance-none {{ qty is defined ? 'js-refresh-on-change' }} spinner"
+      type="number"
+      id="frontend-qty"
+      name="frontend-qty"
+      data-name="{{ name }}"
+      data-qty-interval="1"
+      value="{{ qty|default ? qty : 1 }}"
+      step="1"
+      min="{{ variant.minQty|default(0) }}"
+      {% if isProduct|default(false) %}
+      x-bind:max="getCurrentVariantStock()"
+      {% else %}
+        {% if not variant.hasUnlimitedStock %}
+          max="{{ variant.stock }}"
+        {% endif %}
+      {% endif %}>
+  </div>
+  <button type="button" class="w-6 h-6 flex justify-center items-center rounded-full leading-none pt-px" data-increase>+</button>
+</div>

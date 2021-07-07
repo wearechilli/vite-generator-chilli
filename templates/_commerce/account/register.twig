@@ -1,0 +1,52 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+{% import '_macros/imager' as transform %}
+{% import '_macros/form' as form %}
+
+{# Set variables #}
+{% if currentUser %}
+  {% redirect '/account' %}
+{% endif %}
+
+{% block content %}
+<div class="container flex">
+  <div class="w-1/4 relative">
+    {% include '_commerce/account/partials/accountNav' %}
+  </div>
+  <div class="w-3/5">
+    <h1 class="text-2xl font-bold mb-10">Registreren</h1>
+
+    <form method="post" accept-charset="UTF-8" class="js-validate">
+      {{ csrfInput() }}
+      {{ redirectInput('account') }}
+      {{ actionInput('users/save-user') }}
+      {{ hiddenInput('userRegisteredNotice', 'Je account werd aangemaakt. Je kan inloggen van zodra je jouw e-mailadres hebt geverifieerd in de mail die we je zonet hebben gestuurd.') }}
+
+      {% if errors is defined %}
+        <ul class="text-red-500 mb-6">
+          {% for error in errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="mb-6">
+        {{ form.input('', { id: 'firstName', name: 'firstName', placeholder: 'Voornaam'|t, type: 'text', value: (user is defined) ? user.firstName : '' }) }}
+      </div>
+      <div class="mb-6">
+        {{ form.input('', { id: 'lastName', name: 'lastName', placeholder: 'Achternaam'|t, type: 'text', value: (user is defined) ? user.lastName : '' }) }}
+      </div>
+      <div class="mb-6">
+        {{ form.input('', { id: 'email', name: 'email', placeholder: 'E-mailadres'|t, type: 'email', value: (user is defined) ? user.username : '' }) }}
+      </div>
+      <div class="mb-6">
+        {{ form.input('', { id: 'password', name: 'password', placeholder: 'Wachtwoord'|t, type: 'password' }) }}
+      </div>
+
+      <div class="flex justify-end">
+        <button type="submit" class="button">{{ 'registreer'|t }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

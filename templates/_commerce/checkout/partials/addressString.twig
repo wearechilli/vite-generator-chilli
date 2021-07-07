@@ -1,0 +1,25 @@
+{% if address.firstName is not empty or address.lastName is not empty %}
+<div class="leading-6 text-14">
+{% if address.firstName is not empty %}{{ address.firstName }} {% endif %}
+{% if address.lastName is not empty %}{{ address.lastName }}{% endif %}
+</div>
+{% endif %}
+
+{% if address.address1 is not empty %}
+<span class="leading-6 text-14">{{ address.address1 }} {{ address.address2 }} {{ address.address3 }}</span>
+{% endif %}
+
+{% if address.zipCode is not empty or address.city is not empty %}
+<div class="leading-6 text-14">
+{% if address.zipCode is not empty %}{{ address.zipCode }}{% if address.city is not empty %} {% endif %}{% endif %}
+{% if address.city is not empty %}{{ address.city }}{% endif %}
+</div>
+{% endif %}
+
+{% if address.phone is not empty %}
+<div class="leading-6 text-14">{{ address.phone }}</div>
+{% endif %}
+
+{% if address.countryText is defined %}
+<span class="leading-6 text-14">{{ address.countryText|t }}</span>
+{% endif %}

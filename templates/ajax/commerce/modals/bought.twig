@@ -1,0 +1,17 @@
+{# Layouts and macros #}
+{% extends "ajax/modals/_layout" %}
+
+{% if not craft.app.request.isAjax %}
+  {% redirect '/' %}
+{% endif %}
+
+{% set purchasableId = craft.app.request.getQueryParam('purchasableId') %}
+{% set variant = craft.variants().id(purchasableId).one() %}
+
+{% block modal %}
+<h2 class="text-2xl font-bold mb-10">{{ variant.product.title }} is toegevoegd aan je winkelmandje</h2>
+<div class="flex justify-between">
+  <button type="button" class="underline js-close">verder winkelen</button>
+  <a href="{{ url('winkelmandje') }}" class="button">bestellen</a>
+</div>
+{% endblock %}

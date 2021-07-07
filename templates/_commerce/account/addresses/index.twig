@@ -1,0 +1,35 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+{% import '_macros/imager' as transform %}
+{% import '_macros/form' as form %}
+
+{# Set variables #}
+{% if not currentUser %}
+  {% redirect '/account/inloggen' %}
+{% endif %}
+
+{% set addresses = craft.commerce.customers.customer.addresses|filter(address => address.fullName|default('') != 'Mr. Shipping Quote') %}
+
+{% block content %}
+<div class="container flex">
+  <div class="w-1/4 relative">
+    {% include '_commerce/account/partials/accountNav' %}
+  </div>
+  <div class="w-3/5">
+    <h1 class="text-2xl font-bold mb-10">Adresboek</h1>
+
+    {% if addresses and currentUser %}
+      <ul>
+      {% for address in addresses %}
+        <li class="mb-6">
+          <div class="mb-4">{{ include('_commerce/checkout/partials/addressString') }}</div>
+          <a href="{{ url('account/adresboek/editeer?addressId='~address.id) }}" class="font-bold underline">{{ 'Editeer'|t }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    {% else %}
+    <p>Je hebt voorlopig nog geen adressen. Van zodra je een bestelling plaatst kan je jouw adres aanmaken.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

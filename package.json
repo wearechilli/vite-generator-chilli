@@ -28,6 +28,7 @@
     "assets:push": "./scripts/assets_push.sh"
   },
   "dependencies": {
+    "alpinejs": "^3.2.1",
     "axios": "^0.21.1",
     "form-data-validator": "^1.0.14",
     "gsap": "^3.7.0",

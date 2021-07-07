@@ -1,0 +1,126 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+{% import '_macros/imager' as transform %}
+{% import '_macros/form' as form %}
+
+{# Set variables #}
+{% if cart is not defined %}
+  {% set cart = craft.commerce.carts.cart %}
+{% endif %}
+
+{% block content %}
+<div class="container flex">
+  <div class="w-2/3 sm:pr-4">
+    <h2 class="text-2xl font-bold mb-10">Winkelmandje</h2>
+    {% if not cart.lineItems|length %}
+    <div class="body">
+      <p>Je winkelmandje is nog leeg</p>
+    </div>
+    {% else %}
+    <form method="POST" class="w-full mb-10" accept-charset="UTF-8" enctype="multipart/form-data" onkeydown="return event.key != 'Enter';">
+      <input type="hidden" name="action" value="commerce/cart/update-cart">
+      {{ redirectInput(craft.app.request.pathInfo) }}
+      {{ csrfInput() }}
+      {% set lineItemHasErrors = false %}
+
+      {% for item in cart.lineItems %}
+      <div class="flex justify-between items-start {{ not loop.last ? 'mb-2' }}">
+        <a href="{{ item.purchasable.product.url }}" class="flex-grow-0 mr-6">
+          {{ transform.image(item.purchasable.product.image.one()|default('https://picsum.photos/seed/{{ product.slug }}/70'), { width: 70, height: 70 }) }}
+        </a>
+        <div class="flex-grow">
+          <div class="">{{ item.description }} - {{ item.purchasable.uniqueCombinationOfVariantAttributes.select('title').column()|join(', ') }}{{ item.qty > 1 ? ' (* '~item.qty~')' }}</div>
+          {% set pickupRules = craft.entries.section('pickupRules').relatedTo([
+            'or',
+            { targetElement: item.purchasable.product },
+            { targetElement: item.purchasable.product.shopCategory.one()|default([]) }
+          ]).all() %}
+          {% if pickupRules %}
+          <div class="text-sm mt-2">
+            {% for item in pickupRules %}
+            {{ item.pickupRuleMessage }}
+            {% endfor %}
+          </div>
+          {% endif %}
+          <button type="submit" name="lineItems[{{ item.id }}][remove]" value="1" class="underline mt-2" title="Verwijder {{ item.description }}">
+            verwijder
+          </button>
+        </div>
+        <div class="">
+          {% include '_commerce/shop/partials/spinner' with { name: "lineItems[#{item.id}][qty]", qty: item.qty, variant: item.purchasable, cart: cart } only %}
+        </div>
+        <div class="w-20 text-right flex-shrink-0">
+          {% include '_commerce/shop/partials/price' with { variant: item, cart: cart } only %}
+        </div>
+      </div>
+      {% endfor %}
+    </form>
+
+    <div class="sm:flex justify-between">
+      <div class="sm:w-2/5 mb-10 sm:mb-0">
+        {% if cart.getFirstError('couponCode') %}
+          <div class="text-left text-red-500 text-sm">{{ cart.getFirstError('couponCode') }}</div>
+        {% endif %}
+        <div x-data="{ active: false }">
+          <button class="button" @click="active = !active" x-show="!active">kortingscode?</button>
+          <form method="POST" class="js-validate" x-show="active">
+            <input type="hidden" name="action" value="commerce/cart/update-cart">
+            {{ redirectInput(craft.app.request.pathInfo) }}
+            {{ csrfInput() }}
+
+            <div class="mb-12 flex">
+              <div class="flex-grow">
+                {{ form.input('', { id:'couponCode', name: 'couponCode', placeholder: 'Vul je kortingscode in' }) }}
+              </div>
+              <button class="button !h-10 !min-h-0" type="submit">
+                &rarr;
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="sm:w-2/5">
+        <div id="cart-totals" class="transition-opacity duration-300 mb-12">
+          <div class="js-refresh-content-placeholder">
+            {% include '_commerce/cart/partials/totals' with { isCartIndex: true } %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="sm:w-1/3 sm:pl-4">
+    <form method="POST" class="mb-10 p-4 border-4 border-blue-500 js-validate" id="shipping-method" action="{{ url(craft.app.request.pathInfo) }}">
+      <input type="hidden" name="action" value="commerce/cart/update-cart">
+      {{ redirectInput('afrekenen') }}
+      {{ csrfInput() }}
+
+      <h3 class="text-2xl font-bold mb-10">ophaling of levering</h3>
+
+      {% for method in cart.availableShippingMethodOptions|sort((a, b) => a.handle == 'pickup') %}
+        <div class="{{ not loop.last ? 'mb-10 sm:mb-15' }}">
+          {{ form.radio(method.name, {
+            name: 'shippingMethodHandle',
+            id: "shippingMethodHandle-#{method.handle}",
+            value: method.handle,
+            checked: method.handle == cart.shippingMethodHandle ? true : false,
+            class: '!font-serif !font-medium !tracking-wider js-toggle js-refresh-content',
+            'data-target': "##{method.handle}-details",
+            'data-placeholder': '#cart-totals',
+            'data-fetch': url('ajax/commerce/totals'),
+            disabled: cart.availableShippingMethods[method.handle] is defined ? false : true
+          }, 'black') }}
+        </div>
+      {% endfor %}
+
+      {% if 'pickup' in cart.availableShippingMethods|map(el => el.handle) %}
+      <div id="pickup-details" class="mt-10 {{ cart.shippingMethodHandle == 'delivery' or cart.shippingMethodHandle == 'bpost' ? 'hidden' }}">
+        {% include('_commerce/cart/partials/pickup') %}
+      </div>
+      {% endif %}
+    </form>
+
+    <button type="submit" class="button w-full" form="shipping-method">verder naar bestellen</button>
+  </div>
+</div>
+{% endblock %}

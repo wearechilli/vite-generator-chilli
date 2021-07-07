@@ -16,7 +16,7 @@
   {% if craft.imager.serverSupportsWebp() %}
     <source sizes="100vw" srcset="{{ craft.imager.srcset(transformedImagesWebp) }}" type="image/webp">
   {% endif %}
-  <img src="{{ craft.imager.placeholder() }}" sizes="100vw" srcset="{{ craft.imager.srcset(transformedImages) }}" {{ attributes.loading is defined ? "loading=#{attributes.loading}" }}>
+  <img src="{{ craft.imager.placeholder() }}" sizes="100vw" srcset="{{ craft.imager.srcset(transformedImages) }}" {{ sizes|length == 1 ? "width=\"#{sizes[0].width}\""|raw }} {{ attributes.loading is defined ? "loading=#{attributes.loading}" }}>
 </picture>
 {% endmacro %}
 

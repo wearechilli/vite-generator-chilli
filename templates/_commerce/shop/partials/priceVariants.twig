@@ -1,0 +1,78 @@
+{% import '_macros/form' as form %}
+
+{% for attributeLabel in variantAttributesLabels %}
+  <div class="">
+    <label class="hidden mb-2" id="{{ attributeLabel.slug }}">{{ attributeLabel.title }}</label>
+
+    {% set labelOptions = [] %}
+    {% set values = variantAttributesValues|filter(el => el.variantAttributeLabel.select('entries.id').column()|first == attributeLabel.id) %}
+    {% for value in values %}
+      {# Get variant for this filter + the other selected ones #}
+      {% set currentSetOfOptions = selectedOptions|merge({ (attributeLabel.slug): value.id }) %}
+      {% set variant = product.variants|filter(el => el.enabled) %}
+      {% for option, value in currentSetOfOptions %}
+        {% set variant = variant|filter(el => value in el.uniqueCombinationOfVariantAttributes.ids()) %}
+      {% endfor %}
+      {% set variant = variant|first|default(null) %}
+
+      {% set labelOptions = labelOptions|merge([{
+        value: value,
+        valueId: value.id,
+        valueTitle: value.title,
+        selected: value.id in currentVariantOptionIds ? true : false,
+        sku: variant.sku|default(''),
+        disabled: (variant.stock <= 0 and not variant.hasUnlimitedStock) ? true : false,
+        variant: variant,
+        variantId: variant.id
+      }]) %}
+    {% endfor %}
+
+    {% if attributeLabel.displayType == 'dropdown' %}
+      {% macro formatDimensions(variant) %}
+        {% set dimensions = [] %}
+        {% if variant.height %}
+          {% set dimensions = dimensions|merge(["#{variant.height|number_format(0)} cm hoog"]) %}
+        {% endif %}
+        {% if variant.length and variant.width %}
+          {% if variant.length == variant.width %}
+            {% set dimensions = dimensions|merge(["#{variant.width|number_format(0)} cm diameter"]) %}
+          {% else %}
+            {% set dimensions = dimensions|merge(["#{variant.length|number_format(0)} cm lengte"]) %}
+            {% set dimensions = dimensions|merge(["#{variant.width|number_format(0)} cm breedte"]) %}
+          {% endif %}
+        {% endif %}
+
+        {% if dimensions|length %}
+          / {{ dimensions|join(', ') }}
+        {% endif %}
+      {% endmacro %}
+
+      {{ form.select('', {
+        name: variantAttributesLabels|length > 1 ? "options[#{attributeLabel.slug}]" : "purchasableId",
+        id: attributeLabel.slug,
+        value: attribute(labelOptions|filter(el => el.selected)|first, variantAttributesLabels|length > 1 ? 'valueId' : 'variantId'),
+        'x-on:change': "currentVariant = parseInt($event.target.value)",
+        class: 'bg-beige-200-important'
+       }, labelOptions|map((el) => {
+         value: variantAttributesLabels|length > 1 ? el.valueId : el.variant.id,
+         text: el.valueTitle ~ _self.formatDimensions(el.variant),
+         disabled: el.disabled
+        } )) }}
+    {% endif %}
+
+    {% if attributeLabel.displayType == 'radioButtons' %}
+    {% for attributeOption in labelOptions %}
+      <div class="mb-4">
+      {{ form.radio(attributeOption.valueTitle, {
+        id: "options-#{attributeLabel.slug}-#{attributeOption.valueId}",
+        name: variantAttributesLabels|length > 1 ? "options[#{attributeLabel.slug}]" : "purchasableId",
+        value: variantAttributesLabels|length > 1 ? attributeOption.valueId : attributeOption.variant.id,
+        checked: attributeOption.selected,
+        disabled: attributeOption.disabled,
+        'x-on:change': "currentVariant = parseInt($event.target.value)",
+      }) }}
+      </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+{% endfor %}

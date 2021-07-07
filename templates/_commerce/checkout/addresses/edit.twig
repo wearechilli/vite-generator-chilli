@@ -1,0 +1,53 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+{% import '_macros/img-macros' as transform %}
+{% import '_macros/forms' as forms %}
+
+{# Set variables #}
+{% if cart is not defined %}
+  {% set cart = craft.commerce.carts.cart %}
+{% endif %}
+
+{% if not cart.email or not cart.lineItems|length %}
+  {% redirect 'afrekenen' %}
+{% endif %}
+
+{% set addressId = craft.app.request.param('addressId') %}
+
+{% if not address is defined and addressId %}
+  {% set address = craft.commerce.customers.customer.getAddressById(addressId) %}
+{% endif %}
+
+{% block content %}
+<div class="container">
+  <div class="w-1/2 mx-auto px-4">
+    {% include '_checkout/partials/checkoutNav' with { step: 3 } %}
+
+    <h2 class="mb-6">Adres wijzigen</h2>
+
+    <form method="POST" accept-charset="UTF-8" enctype="multipart/form-data" class="js-validate">
+      <input type="hidden" name="action" value="commerce/customer-addresses/save">
+      <input type="hidden" name="address[id]" value="{{ address.id }}">
+      {{ redirectInput('afrekenen/persoonlijke-gegevens') }}
+      {{ csrfInput() }}
+
+      {# The new address block and show it if user is logged out or has no addresses #}
+      {% include '_checkout/partials/addressForm' with {
+      name: 'address',
+      model: address
+      } %}
+
+      <button type="submit" class="button bg-orange-300">{{ 'Opslaan'|t }}</button>
+    </form>
+
+    <form method="post" class="mt-2">
+      {{ csrfInput() }}
+      <input type="hidden" name="action" value="commerce/customer-addresses/delete">
+      {{ redirectInput('afrekenen/persoonlijke-gegevens') }}
+      <input type="hidden" name="id" value="{{ address.id }}">
+
+      <button type="submit" class="button bg-red-500 opacity-25 hover:opacity-100">{{ 'Verwijder adres'|t }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

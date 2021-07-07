@@ -1,0 +1,44 @@
+{# Layouts and macros #}
+{% extends "_layout/site" %}
+{% import '_macros/imager' as transform %}
+{% import '_macros/form' as form %}
+
+{# Set variables #}
+{% if not currentUser %}
+  {% redirect '/account/inloggen' %}
+{% endif %}
+
+{% block content %}
+<div class="container flex">
+  <div class="w-1/4 relative">
+    {% include '_commerce/account/partials/accountNav' %}
+  </div>
+  <div class="w-3/5">
+    <h1 class="text-2xl font-bold mb-10">E-mailadres wijzigen</h1>
+
+    <form method="post" accept-charset="UTF-8" enctype="multipart/form-data" class="js-validate" data-ajax>
+      {{ csrfInput() }}
+      <input type="hidden" name="action" value="users/save-user">
+      <input type="hidden" name="userId" value="{{ currentUser.id }}">
+      {{ redirectInput('') }}
+
+      {% if errors is defined %}
+        <ul class="text-redd-500 mb-6">
+          {% for error in errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="mb-6">
+        {{ form.input('', { id: 'email', name: 'email', placeholder: 'nieuw e-mailadres'|t, value: currentUser.email, type: 'email' }) }}
+      </div>
+      <div class="mb-6">
+        {{ form.input('', { id: 'password', name: 'password', placeholder: 'wachtwoord'|t, type: 'password' }) }}
+      </div>
+
+      <button type="submit" class="button">{{ 'Opslaan'|t }}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
