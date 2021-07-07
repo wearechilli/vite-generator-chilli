@@ -69,10 +69,6 @@ Install commerce plugin (make sure to upgrade to **pro** version) and import `./
     - `letters` for things that fit in envelopes (like gift cards)
 + Create 3 shipping methods to match the 3 categories (look for similar sites for examples)
 
-### Preferred settings
-
-
-
 ## A word about the Craft Queue & Combell
 
 Craft executes all kind of tasks via a queue system. Jobs (aka tasks) are added to the queue, and get executed. Unfortunately this queue only starts when someone logs into the control panel.
